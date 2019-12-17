@@ -3,11 +3,16 @@ from dashboard import views
 
 urlpatterns = [
     path('',views.dashboard,name='dashboard'),
+    path('admin_logout/',views.admin_logout,name='admin_logout'),
     path('addcity/',views.addcity,name='addcity'),
     path('gifts/',views.gifts,name='gifts'),
     path('addstaff/',views.addstaff,name='addstaff'),
     path('addstaff/delete_staff/<int:id>',views.delete_staff,name='delete_staff'),
     path('addstaff/update_staff/<int:id>',views.update_staff,name='updates'),
+
+    path('addmanager/',views.addmanager,name='addmanager'),
+    path('addmanager/update_manager/<int:id>',views.update_manager,name='update_manager'),
+    path('addmanager/delete_manager/<int:id>',views.delete_manager,name='delete_manager'),
 
     path('gifts/deletgift/<int:id>',views.deletgift,name='deletgift'),
     path('carriers/jobdelete/<int:id>',views.jobdelete,name='jobdelete'),
@@ -32,8 +37,13 @@ urlpatterns = [
     path('franch/',views.franch,name='franch'),
 
     path('franch/deletefranch/<int:id>',views.deletefranch,name='deletefranch'),
-    path('report/',views.html_to_pdf_view,name='report'),
+    # path('report/',views.html_to_pdf_view,name='report'),
     path('test/',views.report,name='test'),
+    path('timein/',views.timein,name='timein'),
+    path('timeout/',views.timeout,name='timeout'),
+    path('attendence/',views.attendence,name='attendence'),
+    path('attendence/delete_atten/<int:id>',views.delete_atten,name='delete_atten'),
+
 
 
 

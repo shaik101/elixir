@@ -1,7 +1,7 @@
 from django.db import models
 from beautyapp.models import Services
 from beautyapp.models import Citys
-import datetime
+from datetime import datetime
 
 # Create your models here.
 
@@ -31,7 +31,7 @@ class Addduration(models.Model):
 
 
 class Guest(models.Model):
-    date=models.DateField(default=datetime.datetime.now())
+    date=models.DateField(default=datetime.now())
     gname = models.CharField(max_length=50)
     mobile = models.CharField(max_length=100)
     city = models.ForeignKey(Citys, on_delete=models.CASCADE,null=True)
@@ -47,3 +47,14 @@ class Guest(models.Model):
 
     def __str__(self):
         return self.gname
+
+
+class Attendence(models.Model):
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    name = models.ForeignKey(Addstaff, on_delete=models.CASCADE, null=True, blank=True)
+    time_in = models.TimeField(null=True,blank=True)
+    time_out = models.TimeField(null=True,blank=True)
+    remarks = models.CharField(max_length=250,default="present")
+
+    def __str__(self):
+        return self.name
