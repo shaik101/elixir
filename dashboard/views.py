@@ -419,14 +419,9 @@ def timeout(request):
     return render(request,'dashboard/timeout.html',{'staff':staff})
 
 
-<<<<<<< HEAD
-    html = HTML(string=html_string)
-    html.write_pdf(target='/tmp/mypdf.pdf',zoom=0.9);
-=======
 def attendence(request):
     atten = Attendence.objects.all()
     return render(request,'dashboard/attendence.html',{'atten':atten})
->>>>>>> 0314fbbf32298ebd3831f565ed15ff75b68977de
 
 def delete_atten(request,id):
     t = Attendence.objects.get(id=id)
