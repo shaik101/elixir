@@ -313,7 +313,7 @@ def html_to_pdf_view(request):
     html_string = render_to_string('dashboard/report.html',{'guests':guests})
 
     html = HTML(string=html_string)
-    html.write_pdf(target='/tmp/mypdf.pdf');
+    html.write_pdf(target='/tmp/mypdf.pdf',zoom=0.9);
 
     fs = FileSystemStorage('/tmp')
     with fs.open('mypdf.pdf') as pdf:
