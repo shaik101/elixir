@@ -385,6 +385,12 @@ def delete_manager(request,id):
 
     return redirect(addmanager)
 
+
+def attendence(request):
+    atten = Attendence.objects.all()
+    return render(request,'dashboard/attendence.html',{'atten':atten})
+
+
 def timein(request):
     if request.method == 'POST':
         name = request.POST['name']
@@ -393,7 +399,7 @@ def timein(request):
         a = Addstaff.objects.get(pk=name)
         at = Attendence(name=a,time_in=time_in,remarks=remarks)
         at.save()
-        return redirect(timein)
+        return redirect(attendence)
     else:
         staf=Addstaff.objects.all()
 
@@ -419,9 +425,6 @@ def timeout(request):
     return render(request,'dashboard/timeout.html',{'staff':staff})
 
 
-def attendence(request):
-    atten = Attendence.objects.all()
-    return render(request,'dashboard/attendence.html',{'atten':atten})
 
 def delete_atten(request,id):
     t = Attendence.objects.get(id=id)
