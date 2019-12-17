@@ -1,0 +1,110 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block addcity %}
+<div class="container">
+<form class="form-inline"  action="{% url 'addcity' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label  class="label" for="city">Add City</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <input type="text" name="name" class="form-control"  required="required"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+        <button type="submit" class="btn btn-sm btn-primary"> ADD</button>
+    </div>
+</form>
+
+<br /></div>
+<div class="container">
+<table class="table table-bordered">
+    <thead class="alert-warning">
+        <tr>
+            <th>NAME</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for cities in city %}
+        <tr>
+            <td>{{ cities.name }}</td>
+            <input type="hidden" name="{{ cities.id }}" value="">
+            <td><center><a class="btn btn-sm btn-warning" onclick="edit_{{ cities.id }}()" data-toggle="modal" data-target="#myModal">
+             Edit</a>
+             <a class="btn btn-sm btn-danger" href="delete/{{ cities.id }}">
+                 Delete</a></center></td>
+
+                 <!-- href="delete/{{ cities.id }} -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">Edit City</h4>
+        </div>
+        <div class="modal-body">
+          <form id="update_form" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="name" class="label">Change Name</label>
+                  <input id="city_name" type="text" name="name"  class="form-control" required="required"/>
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-sm btn-success">Update</button>
+              </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- <div class="modal fade" id="myModals" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete City</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want delete this city</p>
+          <a class="btn btn-sm btn-danger" href="delete/{{ cities.id }}">
+              Delete</a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</div>
+<script>
+  {% for cities in city %}
+
+  function edit_{{ cities.id }}()
+  {
+    console.log("{{ cities.id }}")
+    $("#city_name").val("{{ cities.name }}")
+    $("#update_form").attr("action","update/{{ cities.id}}")
+  }
+
+
+
+  {% endfor %}
+</script>
+{% endblock %}

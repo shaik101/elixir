@@ -1,0 +1,27 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block home%}
+<div class="container">
+<form  action="{% url 'addcity' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="gname">Guest Name</label>
+        <input type="text" name="gname" class="form-control"  required="required"/>
+</div><br>
+
+<div class="form-group">
+    <label for="mno">Mobile No</label>
+    <input type="text" name="mono" class="form-control"  required="required"/>
+</div><br>
+
+<div class="form-group">
+    <label for="service">Service</label>
+    <input type="text" name="service" class="form-control"  required="required"/>
+</div><br>
+        <button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+
+</form>
+</div>
+<br />
+
+{%endblock%}

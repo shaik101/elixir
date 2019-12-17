@@ -1,0 +1,72 @@
+{% extends 'dashboard/index.html' %}
+{% block addcity %}
+  <div class="col-lg-12 text-center"><h3>Carriers List<hr class="hr1">
+</h3></div><br>
+<div class="container table-responsive">
+
+  <table id="dtBasicExample" class="table table-striped table-bordered table-sm table-responsive" cellspacing="0" width="100%">
+    <thead class="alert-warning">
+      <tr>
+        <th class="text-center th-sm" > Name</th>
+        <th class="text-center th-sm">Address</th>
+        <th class="text-center th-sm"> Date</th>
+        <th class="text-center th-sm">Email </th>
+        <th class="text-center th-sm">Mobile_NO</th>
+        <th class="text-center th-sm">Experiance</th>
+        <th class="text-center th-sm">Last Salary</th>
+        <th class="text-center th-sm">Resume</th>
+        <th class="text-center th-sm">Profile_Pic</th>
+
+        <th class="text-center th-sm">Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for job in careers %}
+      <tr>
+        <td class="text-center">{{job.name}}</td>
+        <td class="text-center">{{job.address}}</td>
+        <td class="text-center">{{job.date}}</td>
+        <td class="text-center">{{job.email}}</td>
+        <td class="text-center">{{job.mobileno}}</td>
+        <td class="text-center">{{job.totalexp}}</td>
+        <td class="text-center">{{job.lastsalary}}</td>
+       <td class="text-center">
+      <a href="{{job.fileupload.url}}" style="color:green">Download</a>
+       </td>
+       <td class="text-center">
+
+      <a href="{{job.profile_pic.url}}" style="color:red">Userpic</a>
+       </td>
+       <td class="text-center"><a class="btn btn-sm btn-danger"   href="jobdelete/{{job.id }}">
+           Delete</a>
+           </td>
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+    <tfoot class="alert-warning">
+      <tr>
+        <th class="text-center"> Name</th>
+        <th class="text-center">Address</th>
+        <th class="text-center"> Date</th>
+        <th class="text-center" >Email </th>
+        <th class="text-center">Mobile_NO</th>
+        <th class="text-center">Experiance</th>
+        <th class="text-center">Last Salary</th>
+        <th class="text-center">Resume</th>
+        <th class="text-center">Profile_Pic</th>
+
+        <th class="text-center">Action</th>
+
+      </tr>
+    </tfoot>
+  </table>
+
+
+</div>
+
+
+{%endblock%}

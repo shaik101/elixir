@@ -1,0 +1,116 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block addcity %}
+<div class="col-lg-12 text-center "><h3>Add Price <hr class="hr1">
+</h3></div><br>
+<div class="container">
+<form class="form-inline" id="add_form"  action="{% url 'addprice' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="addprice" class="label">Price</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <input type="text" name="price" class="form-control"  required="required"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+</div>
+
+
+        <button type="submit" class="btn btn-sm btn-primary"> ADD</button>
+
+</form>
+
+<br /></div>
+<div class="container">
+<table class="table table-bordered">
+    <thead class="alert-warning">
+        <tr>
+            <th class="text-center">Price</th>
+
+
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for serviced in service %}
+        <tr>
+            <td class="text-center">{{ serviced.price }}</td>
+
+
+
+            <input type="hidden" name="{{ serviced.id }}" value="">
+            <td><center><a class="btn btn-sm btn-warning" onclick="modify_{{ serviced.id }}()" data-toggle="modal" data-target="#myModal">
+             Edit</a> <a class="btn btn-sm btn-danger"   onclick="delete_{{ serviced.id }}()" href="deletes/{{ serviced.id }}">
+                 Delete</a></center></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- <nav aria-label="Page navigation example" style="float: right;">
+        <ul class="pagination">
+                {% if service.has_previous %}
+                <li><a href="?page={{ appointment.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                {% endif %}
+                {% if service.has_next %}
+
+                <li><a href="?page={{ appointment.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+               {% endif %}
+        </ul>
+</nav> -->
+
+</div>
+
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">EDIT PRICES</h4>
+        </div>
+        <div class="modal-body">
+          <form id="modify_form" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="name" class="label">Change Price</label>
+                  <input id="price_name" type="text" name="price" class="form-control"  required="required"/>
+              </div>
+
+
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-sm btn-success">Update</button>
+              </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<script>
+  {% for serviced in service %}
+
+  function modify_{{ serviced.id }}()
+  {
+    console.log("{{ serviced.id }}")
+    $("#service_name").val("{{ serviced.name }}")
+    $("#service_duration").val("{{ serviced.duration }}")
+    $("#service_price").val("{{ serviced.price }}")
+
+    $("#modify_form").attr("action","modify/{{ serviced.id}}")
+  }
+
+
+
+  {% endfor %}
+</script>
+{% endblock %}

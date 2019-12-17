@@ -1,0 +1,52 @@
+{% extends 'beautyapp/indexs.html' %}
+
+{% load static %}
+{% block espackage %}
+
+<div class="container">
+  <div class="row servicehd">
+    <h4 class="text-center">Elixir Services</h4>
+  </div><br /><br>
+</div>
+
+
+<div class="container package table-responsive" style="background-color:#31708f;">
+  <table class="table table-bordered  ptable">
+    <thead>
+      <tr class="text-center">
+        <th scope="col" class="text-center">SERVICES</th>
+        <th scope="col" class="text-center">DURATION</th>
+        <th scope="col" class="text-center">PRICE</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for k,v in data.items %}
+      <tr>
+        <td class="text-left">{{k}}</td>
+        {% if v.0 == 0 %}
+        <td class="text-center">{{v.1}} Minutes</td>
+        <td class="text-center time">{{v.2}}</td>
+        {% endif %}
+      </tr>
+
+      {% if v.0 == 1 %}
+        {% for sub in v.3 %}
+        <tr>
+            <td class="text-left"><i class="fa fa-star"></i>{{sub.0}}</td>
+            {% if v.1 == "-" %}
+            <td class="text-center"></td>
+            {% else %}
+            <td class="text-center">{{v.1}} Minutes</td>
+            {% endif %} 
+            <td class="text-center time">{{sub.1}}</td>
+           
+        </tr>
+        {% endfor %}
+      {% endif %}
+
+    {% endfor %}
+      </tbody>
+      </table>
+</div>
+{%endblock%}
+

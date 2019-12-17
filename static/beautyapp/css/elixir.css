@@ -1,0 +1,26 @@
+.time{
+  padding-top:74px;
+}
+td{
+  color:white;
+  font-size: 20px;
+}
+th{
+  color:gold;
+  font-size:24px;
+}
+.package{
+  background-color:black;
+  margin-bottom:3%;
+}
+.ptable{
+  margin-top:16px;
+}
+.p2{
+  color: gold;
+    font-size: 20px;
+}
+.mplan{
+  background-color: #6f1c84;
+  margin-bottom: 3%;
+}

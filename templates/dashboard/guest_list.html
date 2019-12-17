@@ -1,0 +1,235 @@
+{% extends 'dashboard/index.html' %}
+{% block addcity %}
+  <div class="col-lg-12 text-center "><h3>Guests List  <hr class="hr1">
+</h3></div><br>
+<div class="container table-responsive ">
+
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm " cellspacing="0" width="100%">
+  <thead class="alert-warning">
+    <tr>
+      <th class=" text-center th-sm">Client_Name
+
+      </th>
+      <th class=" text-center th-sm">Mobile_NO
+
+      </th>
+      <th class="text-center th-sm">Treatment Service
+
+      </th>
+      <th class=" text-center th-sm">Treatment By
+
+      </th>
+      <th class="text-center th-sm">Duration
+
+      </th>
+      <th class=" text-center th-sm">Time In
+
+      </th>
+      <th class="text-center th-sm">Time Out
+
+      </th>
+
+      <th class="text-center th-sm">Total Time
+
+      </th>
+      <th class="text-center th-sm">Price
+
+      </th>
+      <th class="text-center th-sm">Payment MOD</th>
+      <th class="text-center th-sm">Comments</th>
+      <th class="text-center th-sm">Action</th>
+      <th class="text-center th-sm">Action</th>
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+
+      {% for g in guests %}
+<tr>
+
+      <td class="text-center">{{g.gname}}</td>
+      <td class="text-center">{{g.mobile}}</td>
+      <td class="text-center">{{g.services}}</td>
+      <td class="text-center">{{g.treatment_by}}</td>
+      <td class="text-center">{{g.duration}}</td>
+      <td class="text-center">{{g.time_in}}</td>
+      <td class="text-center">{{g.time_out}}</td>
+      <td class="text-center">{{g.total_time}}</td>
+      <td class="text-center">{{g.price}}</td>
+      <td class="text-center">{{g.payment}}</td>
+      <td class="text-center">{{g.comments}}</td>
+
+      <td> <a class="btn btn-sm btn-warning" onclick="edit_{{ g.id }}()" data-toggle="modal" data-target="#myModal">Edit</a>
+      </td><td>  <a class="btn btn-sm btn-danger"  href="guest/gdel/{{g.id}}">Delete</a></td>
+</tr>
+      {% endfor %}
+
+
+  </tbody>
+  <tfoot class="alert-warning">
+    <tr>
+      <th class=" text-center th-sm">Client_Name
+
+      </th>
+      <th class=" text-center th-sm">Mobile_NO
+
+      </th>
+      <th class="text-center th-sm">Treatment Service
+
+      </th>
+      <th class=" text-center th-sm">Treatment By
+
+      </th>
+      <th class="text-center th-sm">Duration
+
+      </th>
+      <th class=" text-center th-sm">Time In
+
+      </th>
+      <th class="text-center th-sm">Time Out
+
+      </th>
+
+      <th class="text-center th-sm">Total Time
+
+      </th>
+      <th class="text-center th-sm">Price
+
+      </th>
+      <th class="text-center th-sm">Payment MOD
+
+      </th>
+      <th class="text-center th-sm">Comments</th>
+      <th class="text-center th-sm">Action</th>
+      <th class="text-center th-sm">Action</th>
+
+    </tr>
+  </tfoot>
+</table>
+</div>
+<div class="container">
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">EDIT CLIENTS DETAIL</h4>
+        </div>
+        <div class="modal-body">
+          <form id="update_form" method="POST">
+              {% csrf_token %}
+              <!-- <div class="form-group">
+                  <label for="name" class="label">Time_In</label>
+                  <input id="timein" type="text" name="time_in"  class="form-control" required="required"/>
+              </div> -->
+
+              <div class="form-group">
+                  <label for="name" class="label">Time_Out</label>
+                  <input id="timeout" type="time" name="time_out"  class="form-control" required="required"/>
+              </div>
+
+              <div class="form-group">
+                  <label for="name" class="label">Total_Time</label>
+                  <input id="totaltime" type="text" name="total_time"  class="form-control" required="required"/>
+              </div>
+
+              <div id="comments" class="form-group">
+                      <label for="comments" class="label">Comments(Why Delay)</label>
+                      <textarea name="comments" class="form-control"  required="required"> </textarea>
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-sm btn-success">Update</button>
+              </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- end of modal -->
+</div>
+<script>
+  {% for g in guests %}
+
+  function edit_{{g.id }}()
+  {
+    console.log("{{ g.id }}")
+    // $("#timein").val("{{ g.time_in }}")
+    $("#timeout").val("{{ g.time_out }}")
+    $("#totaltime").val("{{ g.total_time }}")
+    $("#comments").val("{{ g.commentS }}")
+    $("#update_form").attr("action","clientupdate/{{ g.id}}")
+
+    let d  = {{g.duration}}
+    let tt = {{g.total_time}}
+
+    if (eval(tt-d) <= 0)
+   {
+       $("#comments").hide();
+       // console.log($("#mymodel2"))
+       // $('body').removeClass('modal-open');
+       // $('.modal-backdrop').remove();
+       // console.log("triggered");
+   }else
+   {
+       $("#comments").show();
+   }
+
+  }
+
+
+
+  {% endfor %}
+</script>
+
+<script>
+
+   function myFunction(x) {
+   let [h1,m1] = document.getElementById("timein").value.split(":")
+   let [h2,m2] = document.getElementById("timeout").value.split(":")
+   h = h2 - h1
+   m = (m2 - m1)+15
+
+   let duration =  $("#duration").val()
+   let tt = (60*h)+m
+
+
+   console.log(h+"--"+m)
+
+   console.log(eval(tt-duration))
+
+   if (eval(tt-duration) <= 0)
+   {
+       $("#comments").hide();
+       // console.log($("#mymodel2"))
+       // $('body').removeClass('modal-open');
+       // $('.modal-backdrop').remove();
+       // console.log("triggered");
+   }else
+   {
+       $("#comments").show();
+   }
+
+   document.getElementById(x).value = tt
+
+
+   }
+
+
+</script>
+
+{%endblock%}

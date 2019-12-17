@@ -1,0 +1,652 @@
+.body {
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: auto;
+  background-size: cover;
+  margin-right: auto;
+  background-repeat: no-repeat;
+  font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(0deg, rgb(101, 46, 28) 0%, rgba(122,13,166,1) 52%, rgb(109, 60, 22) 100%);
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  height: 66px;
+  padding: 6px 6px;
+  background: rgba(0, 0, 0, .075);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navbar ul li a {
+  color: #dff0d8;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.navbar ul li a:hover {
+  color: #d46007;
+
+}
+
+/* homepage css start*/
+.c1 {
+  border: 5px solid #1b2124;
+  /* height:500px; */
+  margin-top: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: auto;
+  padding: 0 0 0 0;
+}
+.logohd{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+/*slider css here*/
+.slider,
+.slider>div {
+  /* Images default to Center Center. Maybe try 'center top'? */
+  background-position: center;
+  display: block;
+  width: 100%;
+  height: 500px;
+  /* height: 100vh; */
+  /* If you want fullscreen */
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #000;
+  overflow: hidden;
+  -moz-transition: transform .4s;
+  -o-transition: transform .4s;
+  -webkit-transition: transform .4s;
+  transition: transform .4s;
+}
+
+.slider>div {
+  position: absolute;
+}
+
+.slider>i {
+  color: #5bbd72;
+  position: absolute;
+  font-size: 60px;
+  margin: 20px;
+  top: 40%;
+  text-shadow: 0 10px 2px #223422;
+  transition: .3s;
+  width: 30px;
+  padding: 10px 13px;
+  background: #fff;
+  background: rgba(255, 255, 255, .3);
+  cursor: pointer;
+  line-height: 0;
+  box-sizing: content-box;
+  border-radius: 3px;
+  z-index: 4;
+}
+
+.slider>i svg {
+  margin-top: 3px;
+}
+
+.slider>.left {
+  left: -100px;
+}
+
+.slider>.right {
+  right: -100px;
+}
+
+.slider:hover>.left {
+  left: 0;
+}
+
+.slider:hover>.right {
+  right: 0;
+}
+
+.slider>i:hover {
+  background: #fff;
+  background: rgba(255, 255, 255, .8);
+  transform: translateX(-2px);
+}
+
+.slider>i.right:hover {
+  transform: translateX(2px);
+}
+
+.slider>i.right:active,
+.slider>i.left:active {
+  transform: translateY(1px);
+}
+
+.slider:hover>div {
+  transform: scale(1.01);
+}
+
+.hoverZoomOff:hover>div {
+  transform: scale(1);
+}
+
+.slider>ul {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 4;
+  padding: 0;
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+.slider>ul>li {
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  list-style: none;
+  float: left;
+  margin: 10px 10px 0;
+  cursor: pointer;
+  border: 1px solid #fff;
+  -moz-transition: .3s;
+  -o-transition: .3s;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.slider>ul>.showli {
+  background-color: #3a281a;
+  -moz-animation: boing .5s forwards;
+  -o-animation: boing .5s forwards;
+  -webkit-animation: boing .5s forwards;
+  animation: boing .5s forwards;
+}
+
+.slider>ul>li:hover {
+  background-color: #bdad5d;
+}
+
+.slider>.show {
+  z-index: 1;
+}
+
+.hideDots>ul {
+  display: none;
+}
+
+.showArrows>.left {
+  left: 0;
+}
+
+.showArrows>.right {
+  right: 0;
+}
+
+.titleBar {
+  z-index: 2;
+  display: inline-block;
+  background: rgba(0, 0, 0, .5);
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  transform: translateY(100%);
+  padding: 20px 30px;
+  transition: .3s;
+  color: #fff;
+}
+
+.titleBar * {
+  transform: translate(-20px, 30px);
+  transition: all 700ms cubic-bezier(0.37, 0.31, 0.2, 0.85) 200ms;
+  opacity: 0;
+}
+
+.titleBarTop .titleBar * {
+  transform: translate(-20px, -30px);
+}
+
+.slider:hover .titleBar,
+.slider:hover .titleBar * {
+  transform: translate(0);
+  opacity: 1;
+}
+
+.titleBarTop .titleBar {
+  top: 0;
+  bottom: initial;
+  transform: translateY(-100%);
+}
+
+.slider>div span {
+  display: block;
+  background: rgba(0, 0, 0, .5);
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  width: 100%;
+}
+
+
+@keyframes boing {
+  0% {
+    transform: scale(1.2);
+  }
+
+  40% {
+    transform: scale(.6);
+  }
+
+  60% {
+    transform: scale(1.2);
+  }
+
+  80% {
+    transform: scale(.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* service image css*/
+.serimg {
+  /* border: 5px solid #da7db2; */
+  width:100%;
+  border-radius: 10px;
+}
+.serimg:hover{
+border:  5px solid #a34061;
+}
+
+.servicep {
+  color: #333;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+
+
+}
+
+.servicep:hover {
+  color: #1c0c02
+}
+
+.servicerow {
+  background-color: #1c0c02;
+  border-radius: 10px;
+
+  border-bottom: 5px solid #de84ba;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sh4 {
+  color: #333;
+  text-transform: uppercase;
+/* color:#eee; */
+}
+
+.scardbody {
+  background: #b38458;
+  margin-top: -10px;
+  height: 135px;
+}
+
+.card {
+  border: 3px solid #1c0c02;
+}
+
+.cardimg {
+  width: 257px;
+  height: 159px;
+}
+
+.cardbtn {
+  float: right;
+  margin-right: 10px;
+}
+
+.contsub {
+  margin-top: 2%;
+  background-color: #9c5a23;
+  height: 60px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.contsubrow {
+  padding: 15px 15px;
+
+}
+
+.subp {
+  padding-top: 8px;
+  padding-left: 44px;
+  color: #d8bf38;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.subbtn {
+  background-color: #d8bf38;
+  border-color: #d8bf38;
+
+}
+
+.servicehd {
+  /* background-color: #cabc17;
+ background-image: linear-gradient(#c40ada, #880d3b, #efe815);
+  background-image: linear-gradient(#c40ada, #1c0c02, #9f3829);
+  height: 35px; */
+  background-size: cover;
+    background-repeat: no-repeat;
+  border-radius: 50px;
+  background: url("/static/beautyapp/images/lg1.jpeg") ;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+
+}
+
+.servicehd1 {
+    background-color: #cabc17;
+    /* background-image: linear-gradient(#c40ada, #880d3b, #efe815); */
+    background-image: linear-gradient(#ec3d6e, #ec407f, #ea3737);
+    height: 10px;
+    border-radius: 10px;
+
+}
+.servicehdcn {
+  margin-top: 2%;
+  margin-bottom: 2%;
+
+}
+
+.p1 {
+  margin-top: 25px;
+    color: #1a110c;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: -webkit-center;
+}
+
+.workp {
+  line-height: 0.5;
+
+    /* margin-right: 10px; */
+    margin-left: 80px;
+}
+
+.sectionp {
+
+  /* background-color: #6e3915; */
+  padding: 10px 10px;
+  background: url(/static/beautyapp/images/tipsbg.jpg);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height:258px;
+}
+
+i {
+  color: #d623cf;
+}
+
+h4 {
+  font-weight: 700;
+  color: silver;
+  letter-spacing: 3px;
+text-transform: uppercase;
+font-size: 24px;
+    color: white;
+}
+.bs{
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.hfor {
+  padding-top: 7px;
+}
+.dropdown-menu {
+  background-color: #362424;
+
+}
+
+/* .hr {
+  overflow: visible;
+  /* For IE */
+  /* height: 30px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+} */
+
+/* .hr:before {
+  /* Not really supposed to work, but does */
+  /* display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
+}  */
+
+/* homepage css end*/
+
+
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+.f-c1 {
+  background:#33312f;
+  height: auto;
+  /* opacity: 0.5; */
+  padding: 20px 20px;
+
+
+}
+
+.footer h4 {
+  color: #e2930a;
+  font-weight: 700;
+  font-size: 21px;
+}
+
+.about-company {
+  i {
+    font-size: 25px;
+  }
+
+  a {
+    color: white;
+    transition: color .2s;
+
+    &:hover {
+      color: #4180CB
+    }
+  }
+}
+
+.location {
+  i {
+    font-size: 18px;
+  }
+}
+
+/* .f-c1 {
+  margin-top: 3%;
+} */
+
+.footer ul li {
+  font-size: 13px;
+  margin-bottom: .5em;
+  margin-top: .5em;
+
+}
+
+.footer ul li a {
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.footer ul li a:hover {
+  color: #aaa;
+
+}
+
+.copyright {
+  background-color: black;
+  padding-top: 9px;
+}
+
+.footer ul li p {
+  color: white;
+  font-size: 16px
+}
+
+.footer ul li p:hover {
+  color: #aaa;
+}
+
+.btn-floating i {
+  display: inline-block;
+  width: inherit;
+  color: #fff;
+  text-align: center;
+  font-size: 2.25rem;
+  line-height: 47px;
+}
+
+.list-inline-item:not(:last-child) {
+  margin-right: 1.5rem;
+}
+
+.btn-floating {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0;
+  margin: 10px;
+  overflow: hidden;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
+  transition: all .2s ease-in-out;
+  width: 47px;
+  height: 47px;
+}
+
+.btn-fb {
+  color: #fff;
+  background-color: #3b5998 !important;
+}
+
+.btn-tw {
+  color: #fff;
+  background-color: #55acee !important;
+}
+
+.btn-gplus {
+  color: #fff;
+  background-color: #dd4b39 !important;
+}
+
+.btn-li {
+  color: #fff;
+  background-color: #0082ca !important;
+}
+
+.btn-dribbble {
+  color: #fff;
+  background-color: #ec4a89 !important;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+
+.navbar-toggle{
+background-color: #f9ab26;
+}
+.navbar-toggle .icon-bar{
+background-color: #cf41e0;
+}
+
+@media screen and (max-width: 767px) {
+  #myNavbar {
+    background-color: #5d1e10;
+    z-index: 21;
+  }
+.navbar{
+background-color: #851e92;
+}
+.body{
+  background-size: cover;
+  display: block;
+}
+  .footer {
+    height: auto;
+    display: block;
+
+  }
+
+  .cardimg {
+    width: 324px;
+    display: block;
+
+  }
+
+.banner{
+  height: 300px;
+    border-radius: 10px;
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+}
+.banner1{
+  background-color: green;
+  height:300px;
+  width:100%;
+}
+  .serimg {
+    /* margin-left: 14%; */
+    display: block;
+
+
+  }
+  .contsub{
+    height: auto;
+    display: block;
+  }
+  .txtbx{
+    margin-top: 10px;
+    display: block;
+  }
+  .subbtn{
+width: 100%;
+margin-top: 2%;
+display: block;
+  }
+  .p1{
+    margin-top: 1px;
+
+  }
+  .workp{
+    line-height:1.5;
+    margin-left:1px;
+  }
+
+
+}

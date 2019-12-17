@@ -1,0 +1,259 @@
+{%load static%}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Elixir</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link href="{%static 'beautyapp/fonts/font-awesome/css/font-awesome.css'%}" rel="stylesheet" type="text/css" />
+	<link href="{%static 'beautyapp/fonts/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet" type="text/css" />
+	<link href="{%static 'beautyapp/css/style.css'%}" rel="stylesheet" type="text/css" />
+	<link href="{%static 'beautyapp/js/slider.js'%}" rel="stylesheet" type="text/css" />
+	<link href="{%static 'beautyapp/css/register.css'%}" rel="stylesheet" type="text/css" />
+	<link href="{%static 'beautyapp/css/elixir.css'%}" rel="stylesheet" type="text/css" />
+
+
+	<style>
+		.top-container {
+
+			color: gold;
+			text-align: center;
+		}
+
+		/* .header {
+	  padding: 10px 16px;
+	  background: #555;
+	  color: #f1f1f1;
+	} */
+
+
+		.sticky {
+			position: fixed;
+			top: 0;
+			width: 100%;
+		}
+
+		/* .sticky+.content {
+			padding-top: 102px;
+		} */
+	</style>
+
+</head>
+
+<body class="body" style="background-image:url({% static 'beautyapp/images/bodys4.jpeg' %})">
+
+	<div class="top-container logohd" style="background-image:url({% static 'beautyapp/images/lg1.jpeg' %})">
+		<h1 class="text-center logo"> The&nbsp Elixir&nbsp spa</h1>
+		<h3 style="margin-top: 0px;margin-left: 10px;"><sub>Family International Spa & Salon<sub></h3>
+		<!-- <p>Scroll down to see the sticky effect.</p> -->
+	</div>
+
+	<div class="header" id="myHeader" style="z-index: 997;">
+		<nav class="navbar">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- <a class="navbar-brand" href="{%url 'home'%}">Logo</a> -->
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="{%url 'home'%}">HOME</a></li>
+						<li><a href="{%url 'about'%}">ABOUT</a></li>
+						<!-- <li><a href="#">SERVICES</a></li> -->
+
+						<li class="dropdown">
+							<a class=" dropdown-toggle" data-toggle="dropdown">SERVICES
+								<span class="caret"></span></a>
+							<!-- <ul class="dropdown-menu" style="background-color:#983c5a">
+							    <li><a href="{%url 'service'%}">Service Overview</a></li>
+							    <li><a href="{%url 'espackage'%}">Elixir Signature Package </a></li>
+							    <li><a href="{%url 'mens'%}">Men's Services</a></li>
+									<li><a href="{%url 'mens'%}">FOOT REFLEXOLOGY</a></li>
+									<li><a href="{%url 'mens'%}">FULL LEG MASSAGE</a></li>
+									<li><a href="{%url 'mens'%}">HEAD, SHOULDER & NECK</a></li>
+
+									<li class="dropdown"><a href="{%url 'mens'%}">FULL BODY MASSAGE</a></li>
+
+							  </ul> -->
+
+							<ul class="dropdown-menu">
+								<li><a tabindex="-1" href="{%url 'eservice'%}"> Elixir Service</a></li>
+								<li><a tabindex="-1" href="{%url 'mens'%}">Men's Services</a></li>
+								<li><a tabindex="-1" href="{%url 'espackage'%}">Elixir Signature Package </a></li>
+								<li><a tabindex="-1" href="{%url 'memberplan'%}">Membership Plans </a></li>
+								<!-- <li><a tabindex="-1" href="{%url 'service'%}">Service Overview</a></li> -->
+
+
+							</ul>
+						</li>
+						<li><a href="{%url 'gallery'%}">GALLERY</a></li>
+
+						<li><a href="{%url 'contact'%}">CONTACT</a></li>
+						<li><a href="{%url 'appointment'%}">BOOK APPOINTMENT</a></li>
+						<li><a href="{%url 'careers'%}">CAREERS</a></li>
+						<li><a href="{%url 'franchisee'%}">FRANCHISEE</a></li>
+
+
+
+
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						{% if user.is_authenticated %}
+						<li class="user"></a> hello {{user.first_name}}</a></li>
+
+						<li><a href="{%url 'logout'%}"></span> Logout</a></li>
+						{%else%}
+						<li><a href="{%url 'login'%}"> Login</a></li>
+					<li><a href="{%url 'register'%}">Register</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+	<div class="content wrapper">
+
+
+		{%block homepage%}{%endblock%}
+		{% block register %}{%endblock%}
+		{% block login %}{%endblock%}
+		{% block appointment %}{%endblock%}
+		{% block about %}{%endblock%}
+		{% block contact %}{%endblock%}
+		{% block Gift %}{%endblock%}
+		{% block Services %}{%endblock%}
+		{% block gallery %}{%endblock%}
+		{%block espackage %}{%endblock%}
+		{% block footrefl %}{%endblock%}
+<!-- Footer -->
+
+<!-- <a href="{%url 'appointment'%}" class="btn btn-success">Book Appointment</a> -->
+
+
+		<div class=" container-fluid footer clearfix ">
+
+			<div class="row f-c1">
+				<!-- <div class="row">
+					<div class="col-lg-4  links">
+						<h4 class="mt-lg-0 mt-sm-3 text-center">QUICK LINKS</h4>
+						<ul class="ul list-unstyled ">
+							<li class="text-center"> <a href="{%url 'home'%}">Home</a></li>
+							<li class="text-center"> <a href="{%url 'about'%}">About</a></li>
+							<li class="text-center"> <a href="{%url 'gallery'%}">Gallery</a></li>
+							<li class="text-center"> <a href="{%url 'careers'%}">Careers</a></li>
+							<li class="text-center"> <a href="{%url 'espackage'%}">ELIXIR SIGNATURE PACKAGE</a></li>
+							<li class="text-center"> <a href="{%url 'memberplan'%}">MEMBERSHIP  PLANS</a></li>
+							<li class="text-center"> <a href="{%url 'service'%}">Service overview</a></li>
+
+
+
+
+						</ul>
+					</div>
+					<div class="col-lg-4  links">
+						<h4 class="mt-lg-0 mt-sm-3 text-center" >SERVICES</h4>
+						<ul class="ul list-unstyled ">
+							<li class="text-center"> <a href="{%url 'eservice'%}">ELIXIR SERVICES</a></li>
+							<li class="text-center"> <a href="{%url 'mens'%}">Men's Services</a></li>
+							<!-- <li class="text-center"> <a href="#leg">FULL LEG MASSAGE</a></li>
+							<li class="text-center"> <a href="#foot">FOOT REFLEXOLOGY MASSAGE</a></li>
+
+						</ul>
+					</div>
+
+					<div class="col-lg-4  links">
+						<h4 class="mt-lg-0 mt-sm-3 text-center">CONTACT US</h4>
+
+						<ul class="m-0 p-0 list-unstyled ">
+							<li class="text-center">
+								<p> <i class="fa fa-home">&nbsp &nbsp</i>1st Floor Vinayak Building, Navghar
+							Road, Opp, Sbi Bank Vashi(w)</p>
+							</li>
+							<li class="text-center">
+								<p> <i class="fa fa-envelope">&nbsp &nbsp &nbsp </i>theelixirspa@gmail.com</p>
+							</li>
+							<li class="text-center">
+								<p><i class="fa fa-phone">&nbsp &nbsp &nbsp</i>+91 &nbsp 7507862625&nbsp , 9067706832</p>
+							</li>
+						</ul>
+					</div>
+				</div> -->
+
+				<!-- <hr> -->
+
+				<!-- Social buttons -->
+				<ul class="list-unstyled list-inline text-center">
+					<li class="list-inline-item">
+						<a href="https://www.facebook.com/The-Elixir-Spa-FISS-102273671264107/?modal=admin_todo_tour" class="btn-floating btn-fb mx-1">
+							<i class="fa fa-facebook"> </i>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a href="" class="btn-floating btn-tw mx-1">
+							<i class="fa fa-twitter"> </i>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="btn-floating btn-gplus mx-1">
+							<i class="fa fa-google-plus"> </i>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="btn-floating btn-li mx-1">
+							<i class="fa fa-linkedin"> </i>
+						</a>
+					</li>
+					<li class="list-inline-item">
+						<a class="btn-floating btn-dribbble mx-1">
+							<i class="fa fa-dribbble"> </i>
+						</a>
+					</li>
+				</ul>
+				<!-- Social buttons -->
+			</div>
+
+		</div>
+		<div class="row copyright">
+			<p class="text-center" style="color:#9e9292">Copyright © 2019 Div International Technology Services </p>
+		</div>
+		<!-- Footer -->
+
+	</div>
+
+	<script>
+		window.onscroll = function() {
+			myFunction()
+		};
+
+		var header = document.getElementById("myHeader");
+		var sticky = header.offsetTop;
+
+		function myFunction() {
+			if (window.pageYOffset > sticky) {
+				header.classList.add("sticky");
+			} else {
+				header.classList.remove("sticky");
+			}
+		}
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$('.dropdown-submenu a.test').on("click", function(e) {
+				$(this).next('ul').toggle();
+				e.stopPropagation();
+				e.preventDefault();
+			});
+		});
+	</script>
+</body>

@@ -1,0 +1,150 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block guest%}
+
+<div class="col-lg-12 text-center"><h3>Add Client Details<hr class="hr1">
+</h3></div><br>
+<div class="container gcn" style="background-image:url({% static 'beautyapp/images/dash.jpg' %});">
+<form  action="{% url 'guest' %}" method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="date" class="labels">Date</label>
+        <input type="date" name="date" class="form-control"  required="required"/>
+    </div>
+
+    <div class="form-group">
+        <label for="gname" class="labels">Client Name</label>
+        <input type="text" name="name" class="form-control"  required="required"/>
+</div>
+
+<div class="form-group">
+    <label for="mno" class="labels">Mobile No</label>
+    <input type="text" name="mobileno" class="form-control"  required="required"/>
+</div>
+
+<div class="form-group">
+    <label for="city" class="labels">City</label>
+<select id="city" name="city" class="form-control" required>
+    <option selected disabled> Select City..<option>
+      {% for cities in city %}
+      <option value="{{cities.id}}">{{ cities.name }}</option>
+      {%endfor%}
+  </select>
+</div>
+
+<!-- <div class="form-group">
+    <label for="service"> Treatment Service</label>
+    <input type="text" name="service" class="form-control"  required="required"/>
+</div> -->
+<div class="form-group">
+<label for="service" class="labels"> Treatment Service</label>
+<select name="service" class="form-control" required>
+    <option selected disabled> Select Service..<option>
+          {% for service in services %}
+    <option value="{{service.id}}">{{ service.name }}</option>
+          {%endfor%}
+</select>
+</div>
+
+<!-- <div class="form-group">
+    <label for="service"> Treatment By</label>
+    <input type="text" name="serviceby" class="form-control"  required="required"/>
+</div> -->
+
+<div class="form-group">
+        <label for="serviceby" class="labels"> Treatment By</label>
+        <select name="serviceby" class="form-control" required>
+            <option selected disabled> Select Staff..<option>
+                  {% for staff in staffs %}
+            <option value="{{staff.id}}">{{ staff.name }}</option>
+                  {%endfor%}
+        </select>
+</div>
+
+<div class="form-group">
+    <label for="duration" class="labels">Duration</label>
+    <input id="duration" type="text" name="duration" class="form-control"  required="required"/>
+</div>
+
+<div class="form-group">
+    <label for="timein" class="labels">Time In</label>
+    <input id="timein" type="time" name="timein" class="form-control"  required="required"/>
+</div>
+
+<div class="form-group">
+    <label for="timeout" class="labels">Time Out</label>
+    <input id="timeout" type="time" name="timeout" class="form-control"  required="required"/>
+</div>
+
+<div class="form-group">
+    <label for="totaltime" class="labels">Total Time</label>
+    <input id="totaltime"  onfocus="myFunction(this.id)" type="text" name="totaltime" class="form-control"  required="required" />
+</div>
+
+<div id="comments" class="form-group" style="display: none;">
+        <label for="comments" class="labels">Comments(Why Delay)</label>
+        <textarea name="comments" class="form-control"  required="required"> </textarea>
+</div>
+
+<div class="form-group">
+    <label for="service" class="labels">Price</label>
+    <input type="text" name="price" class="form-control"  required="required"/>
+</div>
+
+
+
+<div class="form-group">
+    <label for="pm" class="labels">Payment MOD</label>
+    <input type="text" name="paym" class="form-control"  required="required" />
+</div>
+
+
+
+        <button type="submit" class="btn btn-lg btn-primary b1" style="margin-bottom:2%">Save</button>
+
+</form>
+</div>
+<br />
+
+<!--  -->
+
+
+<!--  -->
+ <script>
+
+    function myFunction(x) {
+    let [h1,m1] = document.getElementById("timein").value.split(":")
+    let [h2,m2] = document.getElementById("timeout").value.split(":")
+    h = h2 - h1
+    m = (m2 - m1)+15
+
+    let duration =  $("#duration").val()
+    let tt = (60*h)+m
+
+
+    console.log(h+"--"+m)
+
+    console.log(eval(tt-duration))
+
+    if (eval(tt-duration) <= 0)
+    {
+        $("#comments").hide();
+        // console.log($("#mymodel2"))
+        // $('body').removeClass('modal-open');
+        // $('.modal-backdrop').remove();
+        // console.log("triggered");
+    }else
+    {
+        $("#comments").show();
+    }
+
+    document.getElementById(x).value = tt
+
+
+    }
+
+
+</script>
+
+{%endblock%}

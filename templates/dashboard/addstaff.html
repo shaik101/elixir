@@ -1,0 +1,148 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block addcity %}
+<div class="container">
+<form class="form-inline"  action="{% url 'addstaff' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="label" for="name">Staff Name</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <input type="name" name="name" class="form-control"  required="required"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="mobileno">Mobile_No</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <input type="text" name="mobileno" class="form-control"  required="required"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+    </div>
+
+    <div class="form-group">
+        <label for="city" class="label">City</label>
+    <select id="city" name="city" class="form-control" required>
+        <option selected disabled> Select City..<option>
+          {% for cities in city %}
+          <option value="{{cities.id}}">{{ cities.name }}</option>
+          {%endfor%}
+      </select>
+    </div>
+
+    <div class="form-group">
+        <select name="service" class="form-control"  style="width:200px"required >
+          <option selected disabled>Specialist In</option>
+              {% for serviced in service %}
+
+               <option value="{{ serviced.id }}">{{ serviced.name }}</option>
+               {% endfor %}
+        </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary"> ADD</button>
+
+</form>
+
+</div><br /><br />
+<div class="container">
+  <div class="col-lg-12"><h3 class="text-center">Staff Details <hr class="hr1"></h3></div>
+  <table class="table table-bordered">
+      <thead class="alert-warning">
+          <tr>
+              <th>NAME</th>
+              <th>Mobile_No</th>
+              <th>city</th>
+              <th>Service</th>
+              <th class="text-center">Action</th>
+
+
+          </tr>
+      </thead>
+      <tbody>
+        {% for staf in staff %}
+          <tr>
+              <td>{{ staf.name }}</td>
+              <td>{{ staf.mobileno }}</td>
+              <td>{{ staf.city }}</td>
+              <td>{{ staf.services }}</td>
+
+              <input type="hidden" name="{{ staf.id }}" value="">
+              <td><center><a class="btn btn-sm btn-warning" onclick="edit_{{ staf.id }}()" data-toggle="modal" data-target="#myModal">
+               Edit</a> <a class="btn btn-sm btn-danger"   href="delete_staff/{{ staf.id }}">
+                   Delete</a></center></td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">EDIT STAFF DETAILS</h4>
+        </div>
+        <div class="modal-body">
+          <form id="update_form" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="name" class="label">Change Name</label>
+                  <input id="name" type="text" name="name"  class="form-control" required="required"/>
+              </div>
+
+              <div class="form-group">
+                  <label for="name" class="label">Mobile_No</label>
+                  <input id="mobileno" type="text" name="mobileno"  class="form-control" required="required"/>
+              </div>
+
+              <!-- <div class="form-group">
+                  <label for="name" class="label">Specialist</label>
+                  <input id="service" type="text" name="service"  class="form-control" required="required"/>
+              </div> -->
+              <div class="form-group">
+                    <select name="service" class="form-control"  style="100%"required >
+                      <option selected disabled>Specialist</option>
+                          {% for serviced in service %}
+
+                           <option value="{{ serviced.id }}">{{ serviced.name }}</option>
+                           {% endfor %}
+                    </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                </div>
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-sm btn-success">Update</button>
+              </div>
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<script>
+  {% for staf in staff %}
+
+  function edit_{{ staf.id }}()
+  {
+    console.log("{{ staf.id }}")
+    $("#name").val("{{ staf.name }}")
+    $("#mobileno").val("{{ staf.mobileno }}")
+    $("#service").val("{{ staf.services }}")
+
+
+    $("#update_form").attr("action","update_staff/{{ staf.id}}")
+  }
+
+
+
+  {% endfor %}
+</script>
+
+{%endblock%}

@@ -1,0 +1,62 @@
+{% extends 'beautyapp/indexs.html' %}
+
+{% load static %}
+{% block gallery %}
+<div class="container" style="margin-bottom:2%">
+  <div class="row servicehd">
+    <h4 class="text-center">GALLERY</h4>
+  </div><br /><br>
+  <div class="row">
+
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 1" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/footreflexol.png' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 2" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/Flegmassage.jpg' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 3" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/Hdshoulneck.png' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 4" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/aromatherapy.jpg' %}"></a></div>
+</div>
+<div class="row">
+
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 5" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/swedishmsage.jpg' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 6" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/balinemassage.jpg' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 8" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/Deeptissue.jpeg' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 9" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/Ayurvedisage.jpg' %}"></a></div>
+</div>
+<div class="row">
+
+
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 10" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/Deeptissue.jpeg' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 11" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/lomilmassage.jpg' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 12" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/Thaimassage.jpg' %}"></a></div>
+    <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Image 13" href="#"><img class="thumbnail img-responsive" src="{% static 'beautyapp/images/couplemaage.jpg' %}"></a></div>
+
+  </div>
+</div>
+<div tabindex="-1" class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal">×</button>
+        <h3 class="modal-title">Heading</h3>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $('.thumbnail').click(function() {
+      $('.modal-body').empty();
+      var title = $(this).parent('a').attr("title");
+      $('.modal-title').html(title);
+      $($(this).parents('div').html()).appendTo('.modal-body');
+      $('#myModal').modal({
+        show: true
+      });
+    });
+  });
+</script>
+{%endblock%}

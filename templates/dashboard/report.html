@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+    <br>
+    <br>
+    <br>
+
+<div class="container-fluid">
+	<div class='row'>
+	<div class='col-lg-9'>
+    <table class="table table-responsive table-bordered">
+    <thead>
+      <tr>
+        <th>Client_Name</th>
+        <th>Mobile_NO</th>
+        <th>Treatment Service</th>
+        <th>Treatment By</th>
+        <th>Duration</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+        <th>Total Time	</th>
+        <th>Payment MOD</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in guests %}
+
+      <tr>
+        <td class="text-center">{{g.gname}}</td>
+        <td class="text-center">{{g.mobile}}</td>
+        <td class="text-center">{{g.services}}</td>
+        <td class="text-center">{{g.treatment_by}}</td>
+        <td class="text-center">{{g.duration}}</td>
+        <td class="text-center">{{g.time_in}}</td>
+        <td class="text-center">{{g.time_out}}</td>
+        <td class="text-center">{{g.total_time}}</td>
+        <td class="text-center">{{g.price}}</td>
+        <td class="text-center">{{g.comments}}</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+	</div>
+	</div>
+</div>
+
+</body>
+</html>

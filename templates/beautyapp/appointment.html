@@ -1,0 +1,61 @@
+
+{% extends 'beautyapp/indexs.html' %}
+{% load static %}
+{% block appointment %}
+
+<div class="container rcn">
+
+
+      <div class="row">
+        <h3 class="text-center h3">Book Appointment &nbsp<i class="fa fa-calendar-check"></i></h3>
+      </div>
+      <hr class="servicehd1">
+
+<form action="{% url 'appointment' %}" method="post">
+  {% csrf_token %}
+  <input type="text" name="name" placeholder="Enter Your Name" class="form-control"><br>
+  <input type="text" name="mobileno" placeholder="Mobile No" class="form-control"><br>
+  <input type="text" name="email" placeholder="Email (optional)" class="form-control"><br>
+
+
+
+  <select name="city" class="form-control" required>
+  <option selected disabled> Select City..<option>
+    {% for cities in city %}
+    <option value="{{cities.id}}">{{ cities.name }}</option>
+    {%endfor%}
+</select>
+
+<br>
+
+  <input type="date" name="pdate" placeholder="Preferred Date" class="form-control"><br>
+
+  <input type="time" name="ptime" placeholder="Preferred Time" class="form-control"><br>
+
+  <select name="services" class="form-control"  required >
+    <option selected disabled>Appointment For</option>
+        {% for serviced in services %}
+
+         <option value="{{ serviced.id }}">{{ serviced.name }}</option>
+         {% endfor %}
+  </select>
+<br>
+
+  <input type="submit" name ="submit" class="btn btn-success" style="width:100%">
+</form>
+<div>
+  {% for  message in messages %}
+  <h1 class="h3">{{message}}</h1>
+  {%endfor%}
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+{%endblock%}

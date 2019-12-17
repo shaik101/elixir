@@ -1,0 +1,30 @@
+
+{% extends 'beautyapp/indexs.html' %}
+{% load static %}
+{% block Gift %}
+
+<div class="container rcn">
+  <div class="row">
+    <h3 class="text-center h3"> BUY A GIFT VOUCHER <i class="fa fa-gift" aria-hidden="true"></i>
+</h3>
+  </div>
+  <hr class="servicehd1">
+<form action="{% url 'buygift' %}" method="post">
+  {% csrf_token %}
+  <input type="text" name="name" placeholder="Your Name" class="form-control"  required><br>
+  <input type="email" name="email" placeholder="Email" class="form-control" required><br>
+  <input type="text" name="mobile" placeholder="Mobile" class="form-control" required><br>
+  <input type="text" name="address" placeholder="Address" class="form-control" required><br>
+  <input type="text" name="price" placeholder=" Gift Voucher Value " class="form-control" required><br>
+  <input type="textarea" name="message" placeholder="Message" class="form-control"><br>
+  <input type="submit" name ="submit" class="btn btn-success" style="width:100%">
+</form>
+<div>
+  {% for  message in messages %}
+  <h1 class="h1">{{message}}</h1>
+  {%endfor%}
+</div>
+</div>
+
+
+{%endblock%}
