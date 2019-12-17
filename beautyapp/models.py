@@ -24,7 +24,7 @@ class Citys(models.Model):
             return self.name
 
 class User(AbstractUser):
-    city = models.ForeignKey(Citys, on_delete=models.CASCADE,null=True)
+    city = models.ForeignKey(Citys, on_delete=models.CASCADE,null=True,blank=True)
     
 class Services(models.Model):
         name=models.CharField(max_length=500,default="Services")

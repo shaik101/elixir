@@ -59,6 +59,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'beautyparlour.urls'
 AUTH_USER_MODEL = 'beautyapp.User'
 
+# LOGIN_REDIRECT_URL = '/dashboard/'
 
 TEMPLATES = [
     {

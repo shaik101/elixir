@@ -9,7 +9,7 @@
   </div>
   <hr class="servicehd1">
 
-<form action="{% url 'login' %}" method="post">
+<form action="{% url 'admin_login' %}" method="post">
   {% csrf_token %}
 
   <input type="text" name="username" placeholder="username" class="form-control"><br>

@@ -6,9 +6,15 @@ from django.contrib import messages
 from beautyapp.models import Services
 from beautyapp.models import Gift
 from beautyapp.models import Carriers
-from .models import Addstaff
+from .models import Addstaff,Attendence
+# from .models import Addmanager
 from .models import Guest
 from beautyapp.models import Franchisee
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
+from django.contrib.auth.models import auth
+
 
 from django.contrib.auth.decorators import login_required
 
@@ -17,11 +23,11 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from twilio.rest import Client
 
 # for weasyprint
-from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
-from django.template.loader import render_to_string
+# from django.core.files.storage import FileSystemStorage
+# from django.http import HttpResponse
+# from django.template.loader import render_to_string
 
-from weasyprint import HTML
+# from weasyprint import HTML
 
 
 # Create your views here.
@@ -280,12 +286,14 @@ def addcity(request):
 
 
 def admin_login(request):
+    print("inside")
     if request.method=='POST':
-
-
+        print("in post")
         register=auth.authenticate(username=request.POST['username'],password=request.POST['password'])
+        print('test')
         if register is not None:
             auth.login(request,register)
+            print("admin logged in!")
             return redirect(dashboard)
         else:
             messages.info(request,'invalid credentials')
@@ -308,17 +316,120 @@ def report(request):
     return render(request,'dashboard/report.html',{'guests':guests})
 
 
-def html_to_pdf_view(request):
-    guests = Guest.objects.all()
-    html_string = render_to_string('dashboard/report.html',{'guests':guests})
+# def html_to_pdf_view(request):
+#     guests = Guest.objects.all()
+#     html_string = render_to_string('dashboard/report.html',{'guests':guests})
 
+#     html = HTML(string=html_string)
+#     html.write_pdf(target='/tmp/mypdf.pdf');
+
+#     fs = FileSystemStorage('/tmp')
+#     with fs.open('mypdf.pdf') as pdf:
+#         response = HttpResponse(pdf, content_type='application/pdf')
+#         response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+#         return response
+
+#     return response
+def admin_logout(request):
+    auth.logout(request)
+    return redirect(admin_login)
+
+def addmanager(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        mobileno = request.POST['mobileno']
+        city=request.POST['city']
+        city = Citys.objects.get(id=city)
+        username=request.POST['username']
+        password=request.POST['password']
+
+        if User.objects.filter(username=username).exists():
+                messages.info(request,'username taken')
+                return redirect(addmanager)
+        elif User.objects.filter(email=mobileno).exists():
+                messages.info(request,'mobile number is taken')
+                return redirect(addmanager)
+        else:
+                user=User.objects.create_user(first_name=name,username=username,email=mobileno,password=password,city=city)
+                user.is_staff = True
+                user.save()
+                return redirect(addmanager)
+    else:
+        manager = User.objects.filter(is_superuser=False)
+        context_data = {
+        'manager':manager,
+        'city':Citys.objects.all()
+        }
+    return render(request,'dashboard/addmanager.html',context_data)
+
+
+def update_manager(request, id):
+    if request.method == 'POST':
+        m = User.objects.get(id=id)
+        m.first_name = request.POST['name']
+        m.email = request.POST['mobileno']
+        c=request.POST.get('city')
+        city=Citys.objects.get(id=c)
+        city.save()
+        m.city = city
+        m.username = request.POST['username']
+        m.set_password = request.POST['password']
+
+        m.save()
+        return redirect(addmanager)
+    return redirect(addmanager)
+
+def delete_manager(request,id):
+    manager = User.objects.get(id=id)
+    manager.delete()
+
+    return redirect(addmanager)
+
+def timein(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        time_in=request.POST['timein']
+        remarks = request.POST['remarks']
+        a = Addstaff.objects.get(pk=name)
+        at = Attendence(name=a,time_in=time_in,remarks=remarks)
+        at.save()
+        return redirect(timein)
+    else:
+        staf=Addstaff.objects.all()
+
+
+    return render(request,'dashboard/timein.html',{'staf':staf})
+
+def timeout(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        time_out = request.POST['timeout']
+        print(name)
+        b = Addstaff.objects.get(id=name)
+        a = Attendence.objects.get(name=b)
+        a.time_out = time_out
+        a.save()
+        return redirect(timeout)
+
+    else:
+        staff = Addstaff.objects.all()
+
+
+
+    return render(request,'dashboard/timeout.html',{'staff':staff})
+
+
+<<<<<<< HEAD
     html = HTML(string=html_string)
     html.write_pdf(target='/tmp/mypdf.pdf',zoom=0.9);
+=======
+def attendence(request):
+    atten = Attendence.objects.all()
+    return render(request,'dashboard/attendence.html',{'atten':atten})
+>>>>>>> 0314fbbf32298ebd3831f565ed15ff75b68977de
 
-    fs = FileSystemStorage('/tmp')
-    with fs.open('mypdf.pdf') as pdf:
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
-        return response
+def delete_atten(request,id):
+    t = Attendence.objects.get(id=id)
+    t.delete()
+    return redirect(attendence)
 
-    return response
