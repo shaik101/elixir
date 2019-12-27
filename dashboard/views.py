@@ -6,7 +6,7 @@ from django.contrib import messages
 from beautyapp.models import Services
 from beautyapp.models import Gift
 from beautyapp.models import Carriers
-from .models import Addstaff,Attendence
+from .models import Addstaff,Attendence,Expenses, Paymentmod,Addduration
 # from .models import Addmanager
 from .models import Guest
 from beautyapp.models import Franchisee
@@ -20,7 +20,11 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from twilio.rest import Client
+from .msg91 import msg91
+
+import datetime
+
+from django.db.models import Q
 
 # for weasyprint
 # from django.core.files.storage import FileSystemStorage
@@ -33,11 +37,22 @@ from twilio.rest import Client
 # Create your views here.
 @login_required(login_url='/dashboard/admin_login/')
 def dashboard(request):
-        if request.user.is_superuser:
-            guests = Guest.objects.all()
+        if request.method == 'POST':
+            to_date = request.POST['to_date']
+            f_date = request.POST['from_date']
+
+            if request.user.is_superuser:
+                guests = Guest.objects.filter(date__range=(to_date,f_date))
+            else:
+                city = request.user.city
+                guests = Guest.objects.filter(city=city,date__range=(to_date,f_date))
+
         else:
-            city = request.user.city
-            guests = Guest.objects.filter(city=city)
+            if request.user.is_superuser:
+                guests = Guest.objects.all()
+            else:
+                city = request.user.city
+                guests = Guest.objects.filter(city=city)
         return render(request,'dashboard/guest_list.html',{'guests':guests})
 
 def guest(request):
@@ -47,24 +62,26 @@ def guest(request):
         mobileno = request.POST['mobileno']
         service = request.POST['service']
         serviceby = request.POST['serviceby']
-        duration = request.POST['duration']
+        duration = request.POST.get('duration')
         timein = request.POST['timein']
         timeout = request.POST['timeout']
-        totaltime = request.POST['totaltime']
+        # totaltime = request.POST['totaltime']
         price = request.POST['price']
         paym = request.POST['paym']
 
-        comments = request.POST['comments']
+        # comments = request.POST.get('comments')
 
         city=request.POST['city']
-        city = Citys.objects.get(id=city)
+        city = Citys.objects.get(name=city)
 
         print(service)
         s = Services.objects.get(pk=service)
         a = Addstaff.objects.get(pk=serviceby)
+        p = Paymentmod.objects.get(pk=paym)
+        d = Addduration.objects.get(duration=duration)
 
 
-        new_guest = Guest(date=date,gname=name,mobile=mobileno,city=city,comments=comments,services=s,treatment_by=a,duration=duration,time_in=timein,time_out=timeout,total_time=totaltime,price=price,payment=paym)
+        new_guest = Guest(date=date,gname=name,mobile=mobileno,city=city,services=s,treatment_by=a,duration=d,time_in=timein,time_out=timeout,price=price,payment=p)
         new_guest.save()
         messages.success(request,' ')
         return redirect(guest)
@@ -77,7 +94,10 @@ def guest(request):
         staffs = Addstaff.objects.filter(city=staff_city)
 
     city = Citys.objects.all()
-    return render(request,'dashboard/guest.html',{'services':services,'staffs':staffs,'city':city})
+    paym = Paymentmod.objects.all()
+    duration = Addduration.objects.all()
+    user_city = request.user.city
+    return render(request,'dashboard/guest.html',{'services':services,'staffs':staffs,'city':city,'paym':paym,'duration':duration,'user_city':user_city})
 
 
 # def guest_list(request):
@@ -133,12 +153,15 @@ def confirm_appointment(request,id):
         comments = request.POST['comments']
         mobileno = appointment.mobileno
 
-        account_sid = 'ACf72d08db3e903a8b1c7cef4abcefd1ed'
-        auth_token = 'a6373d036f80a7ccbfc32fd173883a2b'
-        client = Client(account_sid, auth_token)
-        message = client.messages.create(from_='+19386669137',body =comments,to ="+918356016968",)
+        print(msg91(mobileno,comments))
 
-    return HttpResponse("Msg sent to the user")
+        appointment.status = "MSG Sent"
+
+        appointment.save()
+
+
+
+    return redirect("adminappointment")
 
 def update(request, id):
     city = Citys.objects.get(id=id)
@@ -147,12 +170,17 @@ def update(request, id):
     return redirect(addcity)
 
 def clientupdate(request, id):
-    g  = Guest.objects.get(id=id)
-    # g.time_in = request.POST['time_in']
-    g.time_out= request.POST['time_out']
-    g.total_time=request.POST['total_time']
-    g.comments = request.POST['comments']
-    g.save()
+    print('client update')
+    if request.method == 'POST':
+        g  = Guest.objects.get(id=id)
+        g.time_in = request.POST['time_in']
+        g.time_out= request.POST['time_out']
+        g.duration=request.POST['duration']
+        g.total_time = request.POST['total_time']
+        g.comments = request.POST['comments']
+        g.save()
+        print(request.POST['time_out'])
+        return redirect(dashboard)
     return redirect(dashboard)
 
 def modify(request, id):
@@ -225,11 +253,11 @@ def addstaff(request):
     if request.method == 'POST':
         name = request.POST['name']
         mobileno = request.POST['mobileno']
-        services=request.POST['service']
+        # services=request.POST['service']
         city=request.POST['city']
         city = Citys.objects.get(id=city)
-        se=Services.objects.get(id=services)
-        staff=Addstaff(name=name,mobileno=mobileno,city=city,services=se)
+        # se=Services.objects.get(id=services)
+        staff=Addstaff(name=name,mobileno=mobileno,city=city)
         staff.save()
         return redirect(addstaff)
     else:
@@ -240,7 +268,7 @@ def addstaff(request):
             staff = Addstaff.objects.filter(city=staff_city)
 
         context_data = {
-        'service':Services.objects.all(),
+        # 'service':Services.objects.all(),
         'staff':staff,
         'city':Citys.objects.all()
         }
@@ -257,11 +285,11 @@ def update_staff(request, id):
         staff = Addstaff.objects.get(id=id)
         staff.name = request.POST['name']
         staff.mobileno = request.POST['mobileno']
-        s = request.POST.get('service')
-        service = Services.objects.get(id=s)
+        # s = request.POST.get('service')
+        # service = Services.objects.get(id=s)
 
-        service.save()
-        staff.services = service
+        # service.save()
+        # staff.services = service
 
         staff.save()
         return redirect(addstaff)
@@ -282,6 +310,26 @@ def addcity(request):
         }
 
     return render(request,'dashboard/addcity.html',context_data)
+
+
+def addprice(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        price =Addprice(name=name)
+        price.save()
+        return redirect(addprice)
+    else:
+        context_data = {
+
+          'price':Addprice.objects.all()
+
+
+        }
+
+    return render(request,'dashboard/addcity.html',context_data)
+
+
+
 
 
 
@@ -391,15 +439,32 @@ def attendence(request):
     return render(request,'dashboard/attendence.html',{'atten':atten})
 
 
+
 def timein(request):
     if request.method == 'POST':
         name = request.POST['name']
         time_in=request.POST['timein']
         remarks = request.POST['remarks']
         a = Addstaff.objects.get(pk=name)
-        at = Attendence(name=a,time_in=time_in,remarks=remarks)
-        at.save()
-        return redirect(attendence)
+        print(time_in,'---- ', type(time_in))
+        # if Attendence.objects.filter(name=a,date__startswith = datetime.datetime.today().strftime('%Y-%m-%d')).exists():
+        #     messages.info(request,a.name+' already entered attendance for the day.')
+        #     return redirect(timein)
+        c = 0
+        for i in Attendence.objects.filter(name=a,date__startswith = datetime.datetime.today().strftime('%Y-%m-%d')):
+            c = c+1
+
+        if c >= 1:
+            messages.info(request,a.name+' already entered attendance for the day.')
+            return redirect(timein)
+        else:
+
+            if time_in in " ":
+                at = Attendence(name=a,remarks=remarks)
+            else:
+                at = Attendence(name=a,time_in=time_in,remarks=remarks)
+            at.save()
+            return redirect(attendence)
     else:
         staf=Addstaff.objects.all()
 
@@ -410,9 +475,13 @@ def timeout(request):
     if request.method == 'POST':
         name = request.POST['name']
         time_out = request.POST['timeout']
-        print(name)
+        # print(name)
         b = Addstaff.objects.get(id=name)
-        a = Attendence.objects.get(name=b)
+        # print(type(b),' ---')
+        a = get_object_or_404( Attendence,Q(name=b) & Q(date__startswith = datetime.datetime.today().strftime('%Y-%m-%d') ))
+        # a = Attendence.objects.get( name=b)
+        # print(dir(a))
+        # print(a.time_in)
         a.time_out = time_out
         a.save()
         return redirect(timeout)
@@ -431,3 +500,81 @@ def delete_atten(request,id):
     t.delete()
     return redirect(attendence)
 
+
+def expenses(request):
+    if request.method == 'POST':
+        date = request.POST['date']
+        particular = request.POST['particular']
+        bill_no = request.POST['bill_no']
+        amount = request.POST['amount']
+        reciept = request.FILES.get('rc')
+
+        print(reciept)
+
+
+        city = request.POST['city']
+        city = Citys.objects.get(id=city)
+
+        ex = Expenses(date=date,particular=particular,bill_no=bill_no,amount=amount,reciept=reciept,city=city)
+        ex.save()
+        return redirect(expenses)
+    else:
+        city = Citys.objects.all()
+
+    return render(request,'dashboard/expenses.html',{'city':city})
+
+
+def paymentmod(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        pay = Paymentmod(name=name)
+        pay.save()
+        return redirect(paymentmod)
+    else:
+        context_data = {
+
+          'pay': Paymentmod.objects.all()
+
+
+        }
+
+    return render(request,'dashboard/paymentmod.html',context_data)
+
+def paymentmodchange(request, id):
+    p = Paymentmod.objects.get(id=id)
+    p.name = request.POST['name']
+    p.save()
+    return redirect(paymentmod)
+
+
+def deletepaymentmod(request,id):
+    p = Paymentmod.objects.get(id=id)
+    p.delete()
+    return redirect(paymentmod)
+
+def adduration(request):
+    if request.method == 'POST':
+        name= request.POST['name']
+        dn = Addduration(duration=name)
+        dn.save()
+        return redirect(adduration)
+    else:
+        context_data = {
+
+          'dn': Addduration.objects.all()
+
+
+        }
+
+    return render(request,'dashboard/adduration.html',context_data)
+
+def durationchange(request, id):
+    a = Addduration.objects.get(id=id)
+    a.name = request.POST['name']
+    a.save()
+    return redirect(adduration)
+
+def deleteduration(request,id):
+    a = Addduration.objects.get(id=id)
+    a.delete()
+    return redirect(adduration)

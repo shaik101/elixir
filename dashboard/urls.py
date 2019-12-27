@@ -43,6 +43,18 @@ urlpatterns = [
     path('timeout/',views.timeout,name='timeout'),
     path('attendence/',views.attendence,name='attendence'),
     path('attendence/delete_atten/<int:id>',views.delete_atten,name='delete_atten'),
+    path('expenses/',views.expenses,name='expenses'),
+    path('paymentmod/',views.paymentmod,name='paymentmod'),
+    path('paymentmodchange/<int:id>',views.paymentmodchange,name='paymentmodchange'),
+    path('paymentmod/deletepaymentmod/<int:id>',views.deletepaymentmod,name='deletepaymentmod'),
+    path('adduration/',views.adduration,name='adduration'),
+    path('adduration/durationchange/<int:id>',views.durationchange,name='durationchange'),
+    path('adduration/deleteduration/<int:id>',views.deleteduration,name='deleteduration'),
+
+
+
+
+
 
 
 

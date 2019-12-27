@@ -25,8 +25,8 @@
           {%endfor%}
       </select>
     </div>
-
-    <div class="form-group">
+&nbsp&nbsp
+    <!-- <div class="form-group">
         <select name="service" class="form-control"  style="width:200px"required >
           <option selected disabled>Specialist In</option>
               {% for serviced in service %}
@@ -34,7 +34,7 @@
                <option value="{{ serviced.id }}">{{ serviced.name }}</option>
                {% endfor %}
         </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    </div>
+    </div> -->
     <button type="submit" class="btn btn-sm btn-primary"> ADD</button>
 
 </form>
@@ -48,7 +48,7 @@
               <th>NAME</th>
               <th>Mobile_No</th>
               <th>city</th>
-              <th>Service</th>
+              <!-- <th>Service</th> -->
               <th class="text-center">Action</th>
 
 
@@ -60,12 +60,15 @@
               <td>{{ staf.name }}</td>
               <td>{{ staf.mobileno }}</td>
               <td>{{ staf.city }}</td>
-              <td>{{ staf.services }}</td>
+              <!-- <td>{{ staf.services }}</td> -->
 
               <input type="hidden" name="{{ staf.id }}" value="">
               <td><center><a class="btn btn-sm btn-warning" onclick="edit_{{ staf.id }}()" data-toggle="modal" data-target="#myModal">
-               Edit</a> <a class="btn btn-sm btn-danger"   href="delete_staff/{{ staf.id }}">
-                   Delete</a></center></td>
+               Edit</a>
+               {% if request.user.is_superuser %}
+
+                <a class="btn btn-sm btn-danger"  data-toggle="modal" data-target="#myModals">
+                   Delete</a>{%endif%}</center></td>
           </tr>
           {% endfor %}
       </tbody>
@@ -101,7 +104,7 @@
                   <label for="name" class="label">Specialist</label>
                   <input id="service" type="text" name="service"  class="form-control" required="required"/>
               </div> -->
-              <div class="form-group">
+              <!-- <div class="form-group">
                     <select name="service" class="form-control"  style="100%"required >
                       <option selected disabled>Specialist</option>
                           {% for serviced in service %}
@@ -109,7 +112,7 @@
                            <option value="{{ serviced.id }}">{{ serviced.name }}</option>
                            {% endfor %}
                     </select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                </div>
+                </div> -->
 
               <div class="form-group">
                   <button type="submit" class="btn btn-sm btn-success">Update</button>
@@ -126,6 +129,33 @@
   </div>
 
 </div>
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModals" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">Delete Client Details</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to delete city</p>
+          {% for staf in staff %}
+
+          <a href="delete_staff/{{ staf.id }}" class="btn btn-danger">Delete</a>
+          {%endfor%}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div></div>
 <script>
   {% for staf in staff %}
 
@@ -134,7 +164,7 @@
     console.log("{{ staf.id }}")
     $("#name").val("{{ staf.name }}")
     $("#mobileno").val("{{ staf.mobileno }}")
-    $("#service").val("{{ staf.services }}")
+    // $("#service").val("{{ staf.services }}")
 
 
     $("#update_form").attr("action","update_staff/{{ staf.id}}")

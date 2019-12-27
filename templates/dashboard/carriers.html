@@ -1,10 +1,11 @@
 {% extends 'dashboard/index.html' %}
+{%load static%}
 {% block addcity %}
   <div class="col-lg-12 text-center"><h3>Carriers List<hr class="hr1">
 </h3></div><br>
 <div class="container table-responsive">
 
-  <table id="dtBasicExample" class="table table-striped table-bordered table-sm table-responsive" cellspacing="0" width="100%">
+  <table id="dtBasicExample" class="table table-striped table-bordered table-sm " cellspacing="0" width="100%">
     <thead class="alert-warning">
       <tr>
         <th class="text-center th-sm" > Name</th>
@@ -39,7 +40,7 @@
 
       <a href="{{job.profile_pic.url}}" style="color:red">Userpic</a>
        </td>
-       <td class="text-center"><a class="btn btn-sm btn-danger"   href="jobdelete/{{job.id }}">
+       <td class="text-center"><a class="btn btn-sm btn-danger"   data-toggle="modal" data-target="#myModals">
            Delete</a>
            </td>
       </tr>
@@ -67,6 +68,86 @@
 
 
 </div>
+<div class="container">
+  <div class="modal fade" id="myModals" role="dialog">
+    <div class="modal-dialog">
 
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">Delete Client Details</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to delete city</p>
+          {% for job in careers %}
+
+
+          <a   href="jobdelete/{{job.id }}" class="btn btn-danger">Delete</a>
+          {%endfor%}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link href="{% static 'dashboard/css/dt.css'%}" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+
+$('#dtBasicExample').dataTable({
+
+               dom: 'Bfrtip',
+               buttons: [
+                   {
+                       extend: 'excelHtml5',
+                       title: 'GUEST LIST',
+                       text:'Export to excel',
+                       className: 'btn btn-success',
+                       footer:true,
+                       exportOptions: {
+                       columns: ':not(.notexport)'
+                         }
+
+                       //Columns to export
+                       //exportOptions: {
+                      //     columns: [0, 1, 2, 3,4,5,6]
+                      // }
+                   },
+                   {
+                       extend: 'pdfHtml5',
+                       title: 'GUEST LIST',
+                       text: 'Export to PDF',
+                       className: 'btn btn-primary ml-1',
+                       footer:true,
+                       exportOptions: {
+                       columns: ':not(.notexport)'
+                         }
+                       //Columns to export
+                       //exportOptions: {
+                      //     columns: [0, 1, 2, 3, 4, 5, 6]
+                     //  }
+                   }
+               ],})
+
+
+
+</script>
 
 {%endblock%}

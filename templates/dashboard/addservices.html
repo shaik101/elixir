@@ -18,7 +18,7 @@
 
 <br /></div>
 <div class="container">
-<table class="table table-bordered">
+<table class="table table-bordered" id="dtBasicExample">
     <thead class="alert-warning">
         <tr>
             <th class="text-center">NAME</th>
@@ -36,7 +36,7 @@
 
             <input type="hidden" name="{{ serviced.id }}" value="">
             <td><center><a class="btn btn-sm btn-warning" onclick="modify_{{ serviced.id }}()" data-toggle="modal" data-target="#myModal">
-             Edit</a> <a class="btn btn-sm btn-danger"   onclick="delete_{{ serviced.id }}()" href="deletes/{{ serviced.id }}">
+             Edit</a> <a class="btn btn-sm btn-danger" onclick="delete_{{ serviced.id }}()"  data-toggle="modal" data-target="#myModals">
                  Delete</a></center></td>
         </tr>
         {% endfor %}
@@ -96,8 +96,46 @@
   </div>
 
 </div>
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModals" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">Delete Client Details</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to delete city</p>
+        
+
+          <a id="s_delete" class="btn btn-danger">Delete</a>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div></div>
 <script>
   {% for serviced in service %}
+
+  function delete_{{ serviced.id }}(){
+
+// href="deletes/{{ serviced.id }}"
+
+    $('#s_delete').attr('href',"deletes/{{ serviced.id }}")
+
+
+
+
+}
 
   function modify_{{ serviced.id }}()
   {
@@ -111,6 +149,64 @@
 
 
 
+
+
   {% endfor %}
 </script>
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link href="{% static 'dashboard/css/dt.css'%}" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+
+$('#dtBasicExample').dataTable({
+
+               dom: 'Bfrtip',
+               buttons: [
+                   {
+                       extend: 'excelHtml5',
+                       title: 'GUEST LIST',
+                       text:'Export to excel',
+                       className: 'btn btn-success',
+                       footer:true,
+                       exportOptions: {
+                       columns: ':not(.notexport)'
+                         }
+
+                       //Columns to export
+                       //exportOptions: {
+                      //     columns: [0, 1, 2, 3,4,5,6]
+                      // }
+                   },
+                   {
+                       extend: 'pdfHtml5',
+                       title: 'GUEST LIST',
+                       text: 'Export to PDF',
+                       className: 'btn btn-primary ml-1',
+                       footer:true,
+                       exportOptions: {
+                       columns: ':not(.notexport)'
+                         }
+                       //Columns to export
+                       //exportOptions: {
+                      //     columns: [0, 1, 2, 3, 4, 5, 6]
+                     //  }
+                   }
+               ],})
+
+         
+
+
+</script>
+
 {% endblock %}

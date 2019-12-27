@@ -3,7 +3,7 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
-
+# from dashboard.models import Addduration
 
 
 class Register(models.Model):
@@ -25,9 +25,11 @@ class Citys(models.Model):
 
 class User(AbstractUser):
     city = models.ForeignKey(Citys, on_delete=models.CASCADE,null=True,blank=True)
-    
+
 class Services(models.Model):
         name=models.CharField(max_length=500,default="Services")
+        # duration = models.ForeignKey(Addduration, on_delete=models.CASCADE,null=True)
+        # price  = models.ForeignKey(Addprice, on_delete=CASCADE,null=True)
 
 
 
@@ -58,6 +60,7 @@ class Appointment(models.Model):
     date=models.DateField()
     time=models.TimeField()
     services = models.ForeignKey(Services, on_delete=models.CASCADE)
+    status = models.CharField(max_length=250,null=True)
 
     def __str__(self):
         return self.name

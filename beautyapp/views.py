@@ -36,7 +36,9 @@ def memberplan(request):
     return render(request,'beautyapp/memberplan.html')
 
 def eservice(request):
-    return render(request,'beautyapp/eservice.html')
+    service=Services.objects.all()
+
+    return render(request,'beautyapp/eservice.html',{'service':service})
 
 def about(request):
     return render(request,'beautyapp/about.html')

@@ -18,7 +18,7 @@
 
     <div class="form-group">
         <label class="label" for="timein">Time In</label>
-        <input type="time" name="timein" class="form-control"  required="required"/>
+        <input type="time" name="timein" class="form-control" />
 
     </div>
 
@@ -34,6 +34,20 @@
     <button type="submit" class="btn btn-lg btn-primary"> ADD</button>
 
 </form>
+
+
+{% for  message in messages %}
+
+<br>
+
+
+<div  class="label" >
+    {{message}}
+</div>
+
+
+{%endfor%}
+
 
 </div>
 

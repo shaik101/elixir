@@ -19,9 +19,11 @@
   <!-- Custom styles for this template-->
   <link href="{% static 'dashboard/css/sb-admin-2.min.css'%}" rel="stylesheet">
   <link href="{% static 'dashboard/css/dashboard.css'%}" rel="stylesheet">
-  <style>
+<style>
 
-  </style>
+    
+
+</style>
 
 </head>
 
@@ -45,28 +47,79 @@
       <hr class="sidebar-divider" style="margin-top:10%">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active ">
-        <a class="nav-link text-center" href="{%url 'dashboard' %}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span style="font-size:20px">Dashboard</span></a>
+      {% if request.user.is_superuser %}
+
+      <hr class="sidebar-divider">
+
+          <li class="nav-item active ">
+            <a class="nav-link text-center" href="{%url 'dashboard' %}">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span style="font-size:20px">Client List</span></a>
+          </li>
+      <hr class="sidebar-divider">
+
+      <li class="nav-item text-center">
+        <a href="{%url 'addmanager'%}">Add Manager</a>
+
       </li>
 
-      <!-- Divider -->
+
+          <hr class="sidebar-divider">
+
+
+          <li class="nav-item text-center">
+            <a href="{%url  'franch' %}">Franchisee</a>
+
+          </li>
+
+          <hr class="sidebar-divider">
+
+          <li class="nav-item text-center">
+            <a href="{%url 'addcity'%}">Add City</a>
+
+          </li>
+          <hr class="sidebar-divider">
+
+
+
+          <li class="nav-item text-center">
+            <a href="{%url 'addstaff'%}">Add Staff</a>
+
+          </li>
+      {% else %}
       <hr class="sidebar-divider">
 
       <li class="nav-item text-center">
         <a href="{%url 'guest'%}">Client</a>
 
       </li>
-
-      {% if user.is_superuser %}
       <hr class="sidebar-divider">
+
+      <li class="nav-item text-center">
+        <a href="{%url 'addstaff'%}">Add Staff</a>
+
+      </li>
+
+  <!--    <hr class="sidebar-divider">
+
+            <li class="nav-item text-center">
+              <a href="{%url 'addservice'%}">Add Service</a>
+
+	    </li> -->
+
+      <hr class="sidebar-divider">
+
+      <li class="nav-item active ">
+        <a class="nav-link text-center" href="{%url 'dashboard' %}">
+          <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+          <span style="font-size:20px">Client List</span></a>
+      </li>
+    <hr class="sidebar-divider">
 
       <li class="nav-item text-center">
         <a href="{%url 'gifts'%}">Gift</a>
 
       </li>
-
       <hr class="sidebar-divider">
 
 
@@ -74,7 +127,6 @@
         <a href="{%url 'carriers'%}">Carriers</a>
 
       </li>
-      {% endif %}
 
       <hr class="sidebar-divider">
 
@@ -83,39 +135,21 @@
 
       </li>
 
-      {% if user.is_superuser %}
-
-      <hr class="sidebar-divider">
-
-
-      <li class="nav-item text-center">
-        <a href="{%url  'franch' %}">Franchisee</a>
-
-      </li>
-
-
       <hr class="sidebar-divider">
 
       <li class="nav-item text-center">
-        <a href="{%url 'addcity'%}">Add City</a>
-
-      </li>
-
-      <hr class="sidebar-divider">
-
-
-
-      <li class="nav-item text-center">
-        <a href="{%url 'addstaff'%}">Add Staff</a>
+        <a href="{%url 'paymentmod'%}">Payment Mod</a>
 
       </li>
 
       <hr class="sidebar-divider">
 
       <li class="nav-item text-center">
-        <a href="{%url 'addmanager'%}">Add Manager</a>
+        <a href="{%url 'adduration'%}">Add duration</a>
 
       </li>
+
+
       <hr class="sidebar-divider">
 
       <li class="nav-item text-center">
@@ -134,9 +168,22 @@
         <a href="{%url 'attendence'%}">Attendence List</a>
 
       </li>
-      
-      {% endif %}
       <hr class="sidebar-divider">
+
+      <li class="nav-item text-center">
+        <a href="{%url 'expenses'%}">Expenses</a>
+
+      </li>
+
+      {% endif %}
+
+        <hr class="sidebar-divider">
+
+            <li class="nav-item text-center">
+              <a href="{%url 'addservice'%}">Add Service</a>
+
+            </li>
+
 
     </ul>
     <!-- End of Sidebar -->
@@ -276,7 +323,8 @@
       <footer class="sticky-footer " style="background-image:url({% static 'beautyapp/images/lg1.jpeg' %})">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span><a>Copyright © 2019 Div International Technology Services</a></span>
+		  <span><a>Copyright © 2019 Div International Technology Service</a><br>
+		    <a href="www.divsolution.com">www.divsolution.com </a></span>
           </div>
         </div>
       </footer>
@@ -289,7 +337,7 @@
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
-  
+
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
