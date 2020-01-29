@@ -114,7 +114,7 @@
       </td>
       {% if request.user.is_superuser %}
 
-      <td class="notexport">  <a class="btn btn-sm btn-danger"  href="guest/gdel/{{g.id}}">Delete</a></td>
+      <td class="notexport">  <a class="btn btn-sm btn-danger" onclick="delete_{{ g.id }}()" data-toggle="modal" data-target="#delete_modal" >Delete</a></td>
       {%endif%}
 </tr>
       {% endfor %}
@@ -303,6 +303,41 @@
       </div>
     </div></div>
 
+
+
+    <!-- modal for delete -->
+
+    <div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="delete_modal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">Delete Client Details</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to delete city</p>
+        
+
+          <a id="s_delete" class="btn btn-danger" >Delete</a>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+    <!-- end of delete modal-->
+
    
   
 <!--Demo question asked on
@@ -394,7 +429,18 @@ $('#example').dataTable({
 {% for g in guests %}
 
 
-//
+// delete Client
+
+
+   function delete_{{ g.id }}(){
+
+
+    $('#s_delete').attr('href',"guest/gdel/{{g.id}}")
+
+   }
+
+
+//end of delete Client
 
 
 
