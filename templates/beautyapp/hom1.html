@@ -1,0 +1,272 @@
+{% extends 'beautyapp/index1.html' %}
+{% load static %}
+{% block home1 %}
+<div class="container" style="margin-bottom:1%">
+  <div id="demo" class="carousel slide c1" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+    <li data-target="#demo" data-slide-to="3"></li>
+
+  </ul>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'beautyapp/images/sll1.jpg' %}" alt="Los Angeles" width="1100" height="500" class="responsive">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'beautyapp/images/menfootrefl.jpeg' %}" alt="Chicago" width="1100" height="500" class="responsive">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'beautyapp/images/sll3.jpeg' %}" alt="New York" width="1100" height="500" class="responsive">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'beautyapp/images/couplemaage.jpg' %}" alt="New York" width="1100" height="500" class="responsive">
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+{%block services%}
+<div class="col-lg-12 servicehd">
+
+    <h4 class="h4">SERVICES</h4>
+  </div>
+
+  <div class="row servicerow" style="background-image:url({% static 'beautyapp/images/menbg.jpeg' %})" >
+    <div class="col-lg-6 bs">
+      <h4 class="text-center  sh4">Men's Services</h4><br>
+    <a href="{%url 'mens'%}">  <img class="serimg" src="{% static 'beautyapp/images/men.jpeg' %}" /><br></a>
+      <p class="servicep">FISS gave their best retreat and high performance massage and
+        skincare treatments for men’s. Our specialists provide upper body massage and ease
+        the tension in the shoulders, back, neck and hands.</p>
+    </div>
+    <div class="col-lg-6 bs">
+     <h4 class="text-center  sh4">Ladies Services</h4><br>
+    <a href="{%url 'service'%}" >  <img class="serimg" src="{% static 'beautyapp/images/girl.jpeg' %}" height="373" /><br></a>
+      <p class="servicep">FISS is your spa, where you can have the best relaxation & it most suitable for you. Our therapists and estheticians will care and deliver results according to your comfortable.
+      </p>
+
+
+    </div></div>
+
+
+
+
+
+
+
+      <div class="container" style="margin-bottom:2%">
+        <div class="col-lg-12 servicehd">
+          <h4 class="h4">POPULAR &nbspPROCEDURES</h4>
+        </div>
+                  <div class="row blog">
+                      <div class="col-md-12">
+                          <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+
+                              <ol class="carousel-indicators">
+                                  <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+                                  <li data-target="#blogCarousel" data-slide-to="1"></li>
+                              </ol>
+
+                              <!-- Carousel items -->
+                              <div class="carousel-inner">
+
+                                  <div class="carousel-item active">
+                                      <div class="row">
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{% static 'beautyapp/images/Ayurvedisage.jpg' %}" class="img1" alt="sandy" />
+                                            <div class="carousel-caption sh5">AYURVEDIC&nbsp MASSAGE</div>
+                                            </a>
+
+                                          </div>
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{%static 'beautyapp/images/lomilmassage.jpg'%}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">LOMI&nbsp LOMI &nbspMASSAGE</div>
+                                            </a>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{%static 'beautyapp/images/footreflexol.png'%}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">FOOT &nbspREFLEXOLOGY </div>
+                                            </a>
+                                          </div>
+
+                                      </div>
+                                      <!--.row-->
+                                  </div>
+                                  <!--.item-->
+
+                                  <div class="carousel-item">
+                                      <div class="row">
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{% static 'beautyapp/images/Thaimassage.jpg' %}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">THAI&nbsp MASSAGE</div>
+                                            </a>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{% static 'beautyapp/images/swedishmsage.jpg' %}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">SWEDISH &nbspMASSAGE:</div>
+                                            </a>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{% static 'beautyapp/images/Abhayangam.jpg' %}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">ABHAYANGAM</div>
+                                            </a>
+                                          </div>
+
+                                      </div>
+                                      <!--.row-->
+                                  </div>
+                                  <!--.item-->
+
+                                  <div class="carousel-item">
+                                      <div class="row">
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{% static 'beautyapp/images/couplemaage.jpg' %}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">COUPLE&nbsp MASSAGE</div>
+                                            </a>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{% static 'beautyapp/images/aromatherapy.jpg' %}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">AROMA&nbsp THERAPY</div>
+                                            </a>
+                                          </div>
+                                          <div class="col-md-4">
+                                            <a class="thumbnail" href="#">
+                                              <img src="{% static 'beautyapp/images/balinemassage.jpg' %}" class="img1" alt="" />
+                                            <div class="carousel-caption sh5">BALINESE &nbspMASSAGE</div>
+                                            </a>
+                                          </div>
+
+                                      </div>
+                                      <!--.row-->
+                                  </div>
+                                  <!--.item-->
+
+
+                              </div>
+                              <!--.carousel-inner-->
+                          </div>
+                          <!--.Carousel-->
+
+                      </div>
+                  </div>
+      </div>
+
+
+      <div class="container servicehdcn">
+        <div class="row">
+          <div class="col-lg-4 ">
+            <h4 class="servicehd text-center hfor h4">TOP &nbspSPA &nbspTIPS</h4>
+            <section class="sectionp ">
+              <ul>
+                <li class="servicep " style="color:#1b140e">Light: Try not to eat any heavy meals or consume alcohol. Have something light to eat instead.</li>
+                  <li class="servicep " style="color:#1b140e">Light: Try not to eat any heavy meals or consume alcohol. Have something light to eat instead.</li>
+
+              </ul>
+
+
+          </div>
+          <div class="col-lg-4 ">
+            <h4 class="servicehd text-center hfor h4">GIFT &nbspA &nbspFRIEND</h4>
+            <a href="{%url 'buygift'%}"> <img class="card-img-top" src="{% static 'beautyapp/images/gifts1.jpg' %}" width="354" height="263"></a>
+
+          </div>
+          <div class="col-lg-4 ">
+            <h4 class="servicehd text-center hfor h4" >WORKING&nbsp HOURS</h4>
+            <section class="sectionp" style="background-image:url({% static 'beautyapp/images/clocks.jpg' %})">
+
+              <p class="p1 workp"><b>Monday to Sunday : </b>12am - 10pm</p>
+              <p class="p1 workp"><b>Mumbai Vasai(w)</b>
+                <p />
+                <p class="p1 workp">Phone No: +91 7507862625</p>
+
+                <p class="p1 workp"><b>Mumbai Virar(w)</b>
+                  <p />
+                  <p class="p1 workp">Mobile No: +91 7507862625</p>
+
+      	    <p class="p1 workp"><b>Nasik</b>
+                    <p />
+                    <p class="p1 workp">Mobile No: +91 9529887027</p>
+
+
+            </section>
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="container contsub servicehd">
+        <div class="row contsubrow ">
+          <div class="col-lg-3 col-sm-3">
+            <p class="sn">Subscribe&nbsp to&nbsp Newsletter</p>
+          </div>
+          <div class="col-lg-3 col-sm-3"><input type="text" class="form-control" placeholder="your name" /></div>
+          <div class="col-lg-3 col-sm-3 txtbx"><input type="text" class="form-control" placeholder="email address" /></div>
+          <div class="col-lg-3 col-sm-3"><a href="#" class="btn btn-primary subbtn sb">Subscribe</a></div>
+
+        </div>
+
+        <div>
+          {% for  message in messages %}
+          {% if message.tags == "success" %}
+            <script>
+              alert("Thank you for booking appointment with Exlixir Spa . We will remind your slot before 30 minutes prior.")
+            </script>
+            {% endif %}
+
+        </div>
+
+        <div>
+
+          {% if message.tags == "info" %}
+            <script>
+              alert("Thanks! For Showing Interest")
+            </script>
+            {% endif %}
+
+        </div>
+
+        <div>
+
+          {% if message.tags == "warning" %}
+            <script>
+              alert("THANK YOU For Choosing ELIXIR GIFT VOUCHER To Your BELOVED ONE")
+            </script>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+
+      </div>
+
+
+  </div>
+
+{%endblock%}
+
+
+
+
+
+{%endblock%}

@@ -10,7 +10,7 @@ from .models import Addstaff,Attendence,Expenses, Paymentmod,Addduration
 # from .models import Addmanager
 from .models import Guest
 from beautyapp.models import Franchisee
-
+from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.contrib.auth.models import auth
@@ -182,6 +182,15 @@ def clientupdate(request, id):
         print(request.POST['time_out'])
         return redirect(dashboard)
     return redirect(dashboard)
+
+def update_guest(request, id):
+    print('client update')
+    if request.method == 'POST':
+
+        g  = Guest.objects.get(id=id)
+        g.comments = request.POST.get('cmt')
+        g.save()
+        return redirect(dashboard)
 
 def modify(request, id):
     service = Services.objects.get(id=id)
@@ -421,7 +430,7 @@ def update_manager(request, id):
         city.save()
         m.city = city
         m.username = request.POST['username']
-        m.set_password = request.POST['password']
+        m.set_password(str(request.POST['password']))
 
         m.save()
         return redirect(addmanager)
@@ -522,6 +531,62 @@ def expenses(request):
         city = Citys.objects.all()
 
     return render(request,'dashboard/expenses.html',{'city':city})
+
+
+def update_expense(request, id):
+    if request.method == 'POST':
+        e = Expenses.objects.get(id=id)
+        e.date = request.POST['date']
+        e.particular = request.POST['particular']
+        e.bill_no = request.POST['bill_no']
+        e.amount = request.POST['amount']
+        #e.city = city
+
+        e.save()
+        return redirect(expenses)
+    return redirect(expenses)
+
+def delete_expense(request,id):
+    exp = Expenses.objects.get(id=id)
+    exp.delete()
+    return redirect(exdetail)
+
+def exdetail(request):
+    # ex=Expenses.objects.all()
+    if request.method == 'POST':
+        to_date = request.POST.get('to_date')
+        f_date = request.POST.get('from_date')
+
+        if request.user.is_superuser:
+            ex = Expenses.objects.filter(date__range=(to_date,f_date))
+        else:
+            city = request.user.city
+            ex = Expenses.objects.filter(city=city,date__range=(to_date,f_date))
+
+    else:
+        if request.user.is_superuser:
+            ex = Expenses.objects.all()
+        else:
+            city = request.user.city
+            ex = Expenses.objects.filter(city=city)
+    return render(request,'dashboard/expensedetails.html', {'ex':ex})
+
+def paymentmod(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        pay = Paymentmod(name=name)
+        pay.save()
+        return redirect(paymentmod)
+    else:
+        context_data = {
+
+          'pay': Paymentmod.objects.all()
+
+
+        }
+
+    return render(request,'dashboard/paymentmod.html',context_data)
+
 
 
 def paymentmod(request):

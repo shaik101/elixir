@@ -50,6 +50,10 @@ urlpatterns = [
     path('adduration/',views.adduration,name='adduration'),
     path('adduration/durationchange/<int:id>',views.durationchange,name='durationchange'),
     path('adduration/deleteduration/<int:id>',views.deleteduration,name='deleteduration'),
+    path('exdetail/',views.exdetail,name='exdetail'),
+    path('exdetail/update_expense/<int:id>',views.update_expense,name='update_expense'),
+    path('exdetail/delete_expense/<int:id>',views.delete_expense,name='delete_expense'),
+    path('update_guest/<int:id>',views.update_guest,name="update_guest"),
 
 
 

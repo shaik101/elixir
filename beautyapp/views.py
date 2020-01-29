@@ -30,7 +30,7 @@ def table(request):
 
 # Create your views here.
 def home(request):
-    return render(request,'beautyapp/home.html')
+    return render(request,'beautyapp/hom1.html')
 
 def memberplan(request):
     return render(request,'beautyapp/memberplan.html')
@@ -41,7 +41,7 @@ def eservice(request):
     return render(request,'beautyapp/eservice.html',{'service':service})
 
 def about(request):
-    return render(request,'beautyapp/about.html')
+    return render(request,'beautyapp/about1.html')
 
 def footrefl(request):
     return render(request,'beautyapp/footrefl.html')
@@ -50,7 +50,7 @@ def services(request):
     return render(request,'beautyapp/service.html')
 
 def gallery(request):
-    return render(request,'beautyapp/gallery.html')
+    return render(request,'beautyapp/gallery1.html')
 
 def espackage(request):
     return render(request,'beautyapp/espackage.html')
@@ -60,7 +60,7 @@ def mens(request):
 
 
 def contact(request):
-    return render(request,'beautyapp/contact.html')
+    return render(request,'beautyapp/contact1.html')
 
 # @login_required(login_url='/beautyapp/login')
 def careers(request):

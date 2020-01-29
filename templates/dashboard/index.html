@@ -21,7 +21,7 @@
   <link href="{% static 'dashboard/css/dashboard.css'%}" rel="stylesheet">
 <style>
 
-    
+
 
 </style>
 
@@ -175,6 +175,11 @@
 
       </li>
 
+      <li class="nav-item text-center">
+        <a href="{%url 'exdetail'%}">Expenses Details</a>
+
+      </li>
+
       {% endif %}
 
         <hr class="sidebar-divider">
@@ -215,6 +220,9 @@
           </form> -->
 
           <!-- Topbar Navbar -->
+          <div class="navbar-header">
+        <a href="#" class="navbar-brand" id="sidebar-toggle"  onclick="myFunctionss()"><i class="fa fa-bars"></i></a>
+      </div>
           <ul class="navbar-nav ml-auto">
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -358,6 +366,16 @@
     </div>
   </div>
 
+  <script>
+function myFunctionss() {
+  var x = document.getElementById("accordionSidebar");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{%static 'dashboard/vendor/jquery/jquery.min.js'%}"></script>

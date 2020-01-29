@@ -55,7 +55,9 @@ class Guest(models.Model):
     price = models.CharField(max_length=50)
     payment  =models.ForeignKey(Paymentmod, on_delete=models.CASCADE,null=True)
 
-    comments = models.CharField(max_length=500,default="NA",)
+    comments = models.CharField(max_length=500,default="NA",null=True,blank=True)
+
+    out = models.BooleanField(default=True)
 
     def __str__(self):
         return self.gname

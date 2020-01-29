@@ -76,9 +76,9 @@
 
       </th>
 
-      
 
-     
+
+
       <th class="text-center th-sm">Price
 
       </th>
@@ -97,25 +97,24 @@
 
       {% for g in guests %}
 <tr class="text-center">
-    <td class="text-center">{{g.date}}</td>
+    <td class="text-center">{{g.date|date:'d-m-y'}}</td>
 
-      <td class="text-center">{{g.gname}}</td>
-      <td class="text-center">{{g.mobile}}</td>
+      <td class="text-center">{{g.gname}}</td>      <td class="text-center">{{g.mobile}}</td>
       <td class="text-center">{{g.services}}</td>
       <td class="text-center">{{g.treatment_by}}</td>
       <td class="text-center">{{g.duration}}</td>
       <td class="text-center">{{g.time_in}}</td>
       <td class="text-center">{{g.time_out}}</td>
-      
+
       <td class="text-center">{{g.price}}</td>
       <td class="text-center">{{g.payment}}</td>
       <td class="text-center">{{g.comments}}</td>
 
-      <td class="notexport"> <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModalss">Out</a>
+      <td class="notexport"> <a class="btn btn-sm btn-warning" id="out{{g.id}}" onclick="out_{{g.id}}(this)" data-toggle="modal" data-target="#myModalss">Out</a>
       </td>
       {% if request.user.is_superuser %}
 
-      <td class="notexport">  <a class="btn btn-sm btn-danger"  data-toggle="modal" data-target="#myModals">Delete</a></td>
+      <td class="notexport">  <a class="btn btn-sm btn-danger"  href="guest/gdel/{{g.id}}">Delete</a></td>
       {%endif%}
 </tr>
       {% endfor %}
@@ -133,7 +132,7 @@
           <th></th>
           <th></th>
           <th></th>
-          
+
           <th class="text-center"></th>
           <th ></th>
           <th ></th>
@@ -274,7 +273,7 @@
   <div class="container">
 
     <!-- Modal -->
-    <div class="modal fade" id="myModalss" role="dialog">
+    <div class="modal fade myModalss" id="myModalss" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -284,9 +283,18 @@
             <h4 class="modal-title text-center">Client</h4>
           </div>
           <div class="modal-body">
-            <label>Why Delay</label>
-          <textarea name="name" rows="8" cols="80" class="form-control"></textarea>
+            <form id="updates_form" method="POST">
+              {% csrf_token %}
+
+            <label id="delay">Why Delay</label>
+          <textarea name="cmt" rows="8" cols="80" class="form-control" id="cmt"></textarea>
+          <br>
+          <div class="form-group">
+              <button type="submit" class="btn btn-lg btn-success" style="width:100%">Submit</button>
           </div>
+         </form>
+          </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div>
@@ -295,10 +303,13 @@
       </div>
     </div></div>
 
+   
+  
 <!--Demo question asked on
 https://qawithexperts.com/questions/228/how-to-export-html-table-to-pdf-excel-in-jquery-datatable -->
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <link href="{% static 'dashboard/css/dt.css'%}" rel="stylesheet">
 
@@ -316,7 +327,7 @@ https://qawithexperts.com/questions/228/how-to-export-html-table-to-pdf-excel-in
 
 $('#example').dataTable({
 
-               dom: 'Bfrtip',
+               dom: 'lBfrtip',
                buttons: [
                    {
                        extend: 'excelHtml5',
@@ -339,7 +350,7 @@ $('#example').dataTable({
                        text: 'Export to PDF',
                        className: 'btn btn-success',
 		       orientation: 'landscape',
-	   
+
                        footer:true,
                        exportOptions: {
                        columns: ':not(.notexport)'
@@ -367,6 +378,8 @@ $('#example').dataTable({
             } // end
 
             } // end footercallbac
+
+
            });
 
 // $(document).ready(function(){
@@ -375,6 +388,100 @@ $('#example').dataTable({
 // });
 </script>
 
+
+<script>
+
+{% for g in guests %}
+
+
+//
+
+
+
+//console.log('working..');
+
+//
+
+function out_{{g.id}}(x){
+  
+  console.log("{{ g.id }}")
+  $("#cmt").val("{{ g.cmt }}")
+  $("#updates_form").attr("action","update_guest/{{ g.id}}")
+
+  let t_out = "{{g.time_out}}"
+  let t_now = new Date().toLocaleTimeString()
+
+  let t_24_out = get24hTime(t_out)
+  let t_24_now = get24hTime(t_now)
+
+  let [h1,m1] = t_24_out.split(":");
+  let [h2,m2] = t_24_now.split(":");
+	//console.log(h1);
+  let hh = eval(h2)-eval(h1);
+  let mm = eval(m2)-eval(m1);
+  //mm = mm.replace(/-/g,"");
+  mm = Math.abs(mm);
+
+	time_now = get24tomin(t_24_now);
+	time_out = get24tomin(t_24_out);
+	min_diff = eval(time_now)- eval(time_out);
+	$("#delay").html("<label>Why delay by  "+min_diff+" Minutes</label>");
+
+  //console.log(t_24_out+'---'+t_24_now)
+
+  //console.log(get24tomin(t_24_now)+" === "+get24tomin(t_24_out))
+
+	if ( time_now <= time_out ){
+
+
+    $(".myModalss").removeAttr('id');
+    console.log("in")
+    //$("#out{{g.id}}").hide();
+
+  }else {
+    $(".myModalss").attr('id','myModalss')
+  }
+
+}
+
+
+{%endfor%}
+
+function get24tomin(time){
+  let [h,m] = time.split(":");
+
+ console.log(h+"  ==== "+m)
+
+  return (eval(h)*60)+eval(m)
+
+}
+
+function get24hTime(str){
+    str = String(str).toLowerCase().replace(/\s/g, '');
+    // console.log(str)
+    str = String(str).toLowerCase().replace(/\./g, '');
+    // console.log(str)
+    var has_am = str.indexOf('am') >= 0;
+    var has_pm = str.indexOf('pm') >= 0;
+    // first strip off the am/pm, leave it either hour or hour:minute
+    str = str.replace('am', '').replace('pm', '');
+    // if hour, convert to hour:00
+    if (str.indexOf(':') < 0) str = str + ':00';
+    // now it's hour:minute
+    // we add am/pm back if striped out before
+    if (has_am) str += ' am';
+    if (has_pm) str += ' pm';
+    // now its either hour:minute, or hour:minute am/pm
+    // put it in a date object, it will convert to 24 hours format for us
+    var d = new Date("1/1/2011 " + str);
+    // make hours and minutes double digits
+    var doubleDigits = function(n){
+        return (parseInt(n) < 10) ? "0" + n : String(n);
+    };
+    return doubleDigits(d.getHours()) + ':' + doubleDigits(d.getMinutes());
+}
+
+</script>
 
 
 {%endblock%}

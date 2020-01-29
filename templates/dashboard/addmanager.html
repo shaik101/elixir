@@ -19,7 +19,7 @@
     <div class="form-group">
         <label for="city" class="label">City</label>
     <select id="city" name="city" class="form-control" required>
-        <option selected disabled> Select City..<option>
+        <option value=""> Select City..<option>
           {% for cities in city %}
           <option value="{{cities.id}}">{{ cities.name }}</option>
           {%endfor%}
@@ -78,7 +78,7 @@
 
               <input type="hidden" name="{{ m.id }}" value="">
               <td><center><a class="btn btn-sm btn-warning" onclick="edit_{{ m.id }}()" data-toggle="modal" data-target="#myModal">
-               Edit</a> <a class="btn btn-sm btn-danger"    data-toggle="modal" data-target="#myModals">
+               Edit</a> <a class="btn btn-sm btn-danger"   href="delete_manager/{{ m.id }}">
                    Delete</a></center></td>
           </tr>
           {% endfor %}
@@ -118,7 +118,7 @@
               <div class="form-group">
                   <label for="city" class="label">City</label>
               <select id="city" name="city" class="form-control" required>
-                  <option selected disabled> Select City..<option>
+                  <option value=""> Select City..<option>
                     {% for cities in city %}
                     <option value="{{cities.id}}">{{ cities.name }}</option>
                     {%endfor%}
