@@ -61,7 +61,7 @@
       <td class="text-center">
 
       <a class="btn btn-sm btn-success" onclick="edit_{{ e.id }}()" href="#" data-toggle="modal" data-target="#myModal">Edit</a>
-      <a class="btn btn-sm btn-danger"  href="delete_expense/{{e.id}}">Delete</a>
+      <a class="btn btn-sm btn-danger" onclick="delete_{{ e.id }}()" data-toggle="modal" data-target="#myModals" >Delete</a>
 </td>
 </tr>
       {% endfor %}
@@ -184,8 +184,45 @@
 
 </div>
 
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModals" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title text-center">Delete Client Details</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure want to delete city</p>
+        
+
+          <a id="s_delete" class="btn btn-danger" >Delete</a>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
   {% for e in ex %}
+
+   function delete_{{ e.id }}(){
+
+// href="deletes/{{ serviced.id }}"
+
+
+    $('#s_delete').attr('href',"delete_expense/{{e.id}}")
+
+}
 
   function edit_{{ e.id }}()
   {

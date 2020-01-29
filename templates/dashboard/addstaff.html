@@ -67,7 +67,7 @@
                Edit</a>
                {% if request.user.is_superuser %}
 
-                <a class="btn btn-sm btn-danger"  data-toggle="modal" data-target="#myModals">
+                <a class="btn btn-sm btn-danger" delete_{{ staf.id }}  data-toggle="modal" data-target="#myModals">
                    Delete</a>{%endif%}</center></td>
           </tr>
           {% endfor %}
@@ -130,6 +130,9 @@
 
 </div>
 
+
+<!-- delete-->
+
 <div class="container">
 
   <!-- Modal -->
@@ -144,10 +147,10 @@
         </div>
         <div class="modal-body">
           <p>Are you sure want to delete city</p>
-          {% for staf in staff %}
+        
 
-          <a href="delete_staff/{{ staf.id }}" class="btn btn-danger">Delete</a>
-          {%endfor%}
+          <a id="s_delete" class="btn btn-danger" >Delete</a>
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -155,9 +158,21 @@
       </div>
 
     </div>
-  </div></div>
+  </div>
+</div>
+
+<!-- end of delete -->
+
+
+
+
 <script>
+
   {% for staf in staff %}
+
+  
+
+  
 
   function edit_{{ staf.id }}()
   {
@@ -169,6 +184,14 @@
 
     $("#update_form").attr("action","update_staff/{{ staf.id}}")
   }
+
+
+     function delete_{{ staf.id }}(){
+
+
+    $('#s_delete').attr('href',"delete_staff/{{ staf.id }}")
+
+    }
 
 
 
